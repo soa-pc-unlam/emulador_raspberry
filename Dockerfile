@@ -8,6 +8,8 @@ RUN apt-get -q -y update && \
                           libglib2.0-dev  \
 						  python3 \
 						  gcc \
+						  python3-pip\
+						  locales \
 						  python3-tk && \ 
     apt-get -q -y clean 
     
@@ -30,8 +32,21 @@ RUN cd /home/app &&\
 	git clone https://github.com/soaunlam2021/emulador_raspberry.git &&\
 	cp imagen_so_raspbian/kernel /
 
+#se instala las herramientas para emular los gpio por fuera de Qemu. Osea en el host
+RUN cd /home/app &&\
+	pip3 install git+https://github.com/nosix/raspberry-gpio-emulator/ &&\
+	git clone https://github.com/nosix/raspberry-gpio-emulator.git 
+
+
 #se establece el password root
 RUN echo 'root:1234' | chpasswd
 
+# restablezco parametros del emulador
+RUN echo "/etc/init.d/dbus start" >> /root/.bashrc &&\
+	echo "rm /tmp/.X1-lock" >> /root/.bashrc &&\
+	echo "rm .X11-unix/X1" >> /root/.bashrc &&\
+	echo "iniciando Qemu Raspberry.." >> /root/.bashrc 
+
 EXPOSE 2222
 VOLUME ["/images"]
+
