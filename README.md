@@ -8,6 +8,7 @@ El directorio Kernel posee el Kernel de la imagen del S.O Raspbian, que fue adap
 
 ## Pasos de ejecucion para abrir el S.O Desktop Raspbian 
 1. Crear el contenedor de la imagen Docker de la siguiente manera
+   
    `docker run -p 6080:80 soaunlam/emulador-raspberry:v2`
 
 1. Abrir una navegador web e ingresar la siguiente URL
