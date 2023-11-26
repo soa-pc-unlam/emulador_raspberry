@@ -1,0 +1,1 @@
+qemu-system-arm -kernel kernel-qemu-4.19.50-buster -drive "file=raspbian-buster.qcow,index=0,media=disk,format=qcow2" -append "root=/dev/sda2 panic=1 filesystem=ext4 rw" -cpu arm1176 -m 256 -M versatilepb -dtb versatile-pb-buster.dtb -no-reboot

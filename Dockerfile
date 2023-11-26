@@ -1,41 +1,25 @@
 #Se usa como base a la imagen de desktopcontainers/raspberrypi
-FROM desktopcontainers/raspberrypi
+FROM fredblgr/ubuntu-novnc:20.04
 
 # se descargan las dependencias
 RUN apt-get -q -y update && \
-	apt-get remove qemu-system-arm &&\
-    apt-get -q -y install libpixman-1-dev \
-                          libglib2.0-dev  \
-						  python3 \
-						  gcc \
-						  python3-pip\
-						  locales \
-						  python3-tk && \ 
-    apt-get -q -y clean 
-    
+    apt-get -q -y install qemu-system \
+			      unzip \	
 
-#se instala la ultima version de qemu-system-arm
-RUN  wget https://download.qemu.org/qemu-7.1.0.tar.xz &&\
-	 tar xvJf qemu-7.1.0.tar.xz &&\
-	 cd qemu-7.1.0 &&\
-	 ./configure --target-list=arm-softmmu,arm-linux-user --disable-vnc  --enable-gtk &&\
-	 Make -j 2 &&\
-	 Make install
-
+#se crean los directorios de descarga
+RUN mkdir /root/raspberry &&\
+	mkdir /root/raspberry/images &&\
+	mkdir /root/raspberry/git
+	
 #se descarga nuestra imagen de Raspbian ya configurada que se encuentra en google drive
-RUN cd /images &&\
-	rm * &&\
-	wget https://drive.google.com/u/0/uc?id=11zHhyjt9Jul9EQBXMCNm0DitNiAvd0lK&export=download&confirm=t&uuid=572f3b37-0848-49a9-a2c5-f921ed6af75 
+RUN cd /root/raspberry/images &&\
+	wget https://drive.google.com/file/d/101SAgE86_e7ws9l-63drSPTruEsCIosF/view?usp=sharing
 
-#se descarga el kernel de la imagen de Raspbian	
-RUN cd /home/app &&\
+#se descarga el kernel y el archivo versatile de la imagen de Raspbian	
+RUN cd /root/raspberry/git &&\
 	git clone https://github.com/soaunlam2021/emulador_raspberry.git &&\
-	cp imagen_so_raspbian/kernel /
-
-#se instala las herramientas para emular los gpio por fuera de Qemu. Osea en el host
-RUN cd /home/app &&\
-	pip3 install git+https://github.com/nosix/raspberry-gpio-emulator/ &&\
-	git clone https://github.com/nosix/raspberry-gpio-emulator.git 
+	cp imagen_so_raspbian/kernel-qemu-4.19.50-buster /root/raspberry/images &&\
+	cp imagen_so_raspbian/versatile-pb-buster.dtb /root/raspberry/images 
 
 
 #se establece el password root
@@ -50,3 +34,9 @@ RUN echo "/etc/init.d/dbus start" >> /root/.bashrc &&\
 EXPOSE 2222
 VOLUME ["/images"]
 
+#se inicia el emulador el entorno GUI de raspbian ejecutandose en qemu-4
+RUN cd /root/raspberry/images &&\
+    qemu-system-arm -kernel kernel-qemu-4.19.50-buster -drive \
+	                "file=raspbian-buster.qcow,index=0,media=disk,format=qcow2" \
+					-append "root=/dev/sda2 panic=1 filesystem=ext4 rw" -cpu arm1176 \
+					-m 256 -M versatilepb -dtb versatile-pb-buster.dtb -no-reboot
