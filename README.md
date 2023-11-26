@@ -1,4 +1,4 @@
-# SOA-Emulador-Raspberry PI
+# SOA-Emulador-Raspberry PI 
 
 Este repositorio pertenece al proyecto denominado "Contenedores de ambientes simulados de sistemas embebidos para Internet de las Cosas" que se esta llevando a cabo en la Universidad Nacional de La Matanza. 
 Aquí se encuentran almacenados los archivos necesarios para poder ejecutar la imagen docker con el emulador Qemu,que esta configurado para utilizar la placa Raspberry PI en forma virtual
