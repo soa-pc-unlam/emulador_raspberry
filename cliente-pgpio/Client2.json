@@ -1,0 +1,8 @@
+{
+  "name": "Cliente 2",
+  "width": 700,
+  "height": 550,
+  "leds": [
+        {"x": 50, "y": 50,  "name": "LED 1", "pin": 21}
+    ]
+}

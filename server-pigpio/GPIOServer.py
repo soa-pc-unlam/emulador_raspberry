@@ -2,6 +2,7 @@ import socket
 import struct
 import threading
 import pigpio
+from datetime import datetime
 
 gpio_state = {}
 gpio_mode = {}
@@ -36,6 +37,7 @@ def response(cmd, p1, p2):
     elif cmd == pigpio._PI_CMD_HWVER:
         req = '_PI_CMD_HWVER'
         res = 0x902120
+        res = 0xa22082 # Raspberry PI 3 Model B Rev 1.2
     # NotifyOpenInBand  // handle
     elif cmd == pigpio._PI_CMD_NOIB:
         req = '_PI_CMD_NOIB'
@@ -73,8 +75,8 @@ def response(cmd, p1, p2):
 def handle_client(client_socket):
     try:
         while True:
-            # Manejar la conexión con el cliente
             request = client_socket.recv(1024)
+            print(f"Message Received at {datetime.now().strftime("%H:%M:%S.%f")}")
             unpacked_values = struct.unpack('IIII', request)
             cmd, p1, p2, _ = unpacked_values
 
