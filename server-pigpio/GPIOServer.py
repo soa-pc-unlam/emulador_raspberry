@@ -1,12 +1,37 @@
 import socket
 import struct
 import threading
+import time
+
 import pigpio
 from datetime import datetime
 
 gpio_state = {}
 gpio_mode = {}
+gpio_Notify = {}
 
+result_ok = 1
+result_nook = -1
+
+def bucle_temporizador():
+    while True:
+        time.sleep(5)
+
+# Crear un hilo para el bucle del temporizador
+temporizador_thread = threading.Thread(target=bucle_temporizador)
+temporizador_thread.start()
+
+def setNotify(pin, value):
+    gpio_Notify[pin] = value
+
+def getNotify(pin):
+    value = -1
+    if pin in gpio_Notify:
+        value = gpio_Notify[pin]
+    else:
+        gpio_Notify[pin] = 0
+        value = gpio_Notify[pin]
+    return value
 
 def setMode(pin, value):
     gpio_mode[pin] = value
@@ -14,6 +39,9 @@ def setMode(pin, value):
 def getMode(pin):
     value = -1
     if pin in gpio_mode:
+        value = gpio_mode[pin]
+    else:
+        gpio_mode[pin] = 0
         value = gpio_mode[pin]
     return value
 
@@ -25,10 +53,13 @@ def getState(pin):
     value = -1
     if pin in gpio_state:
         value = gpio_state[pin]
+    else:
+        gpio_state[pin] = 0
+        value = gpio_state[pin]
     return value
 def response(cmd, p1, p2):
     req = 'unknown command'
-    res = -1
+    res = result_nook
     # First Connection -> Bit Read? // lastLevel
     if cmd == pigpio._PI_CMD_BR1:
         req = '_PI_CMD_BR1'
@@ -41,12 +72,12 @@ def response(cmd, p1, p2):
     # NotifyOpenInBand  // handle
     elif cmd == pigpio._PI_CMD_NOIB:
         req = '_PI_CMD_NOIB'
-        res = 99
+        res = len(gpio_Notify)
     # Set Pin Mode
     elif cmd == pigpio._PI_CMD_MODES:
         req = '_PI_CMD_MODES'
         setMode(p1, p2)
-        res = 1
+        res = result_ok
         # Get Pin Mode
     elif cmd == pigpio._PI_CMD_MODEG:
         req = '_PI_CMD_MODEG'
@@ -54,19 +85,33 @@ def response(cmd, p1, p2):
     # Sets or clears the internal GPIO pull-up/down resistor.
     elif cmd == pigpio._PI_CMD_PUD:
         req = '_PI_CMD_PUD'
-        res = 1
+        res = result_ok
     # Glitch Filter
     elif cmd == pigpio._PI_CMD_FG:
         req = '_PI_CMD_FG'
-        res = 1
+        res = result_ok
     # Write
     elif cmd == pigpio._PI_CMD_WRITE:
         req = '_PI_CMD_WRITE'
         setState(p1, p2)
-        res = 1
+        res = result_ok
+    # Read
     elif cmd == pigpio._PI_CMD_READ:
         req = '_PI_CMD_READ'
         res = getState(p1)
+    # Notify Begin
+    elif cmd == pigpio._PI_CMD_NB:
+        req = '_PI_CMD_NB'
+        setNotify(p1,p2)
+        res = result_ok
+    # Get Ticks
+    elif cmd == pigpio._PI_CMD_TICK:
+        req = '_PI_CMD_TICK'
+        val = time.perf_counter()
+        res = int(time.perf_counter()*1000)
+
+        #_PI_CMD_NC = 21
+
 
     print(f"request:{req}, cmd:{cmd}, p1: {p1}, p2: {p2}")
     print(f"response: {res}")
