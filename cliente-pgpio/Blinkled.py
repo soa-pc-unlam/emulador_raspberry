@@ -1,7 +1,7 @@
 from tkgpio import TkCircuit
 from json import load
 
-with open("Client2.json", "r") as file:
+with open("Blinkled.json", "r") as file:
     configuration = load(file)
 
 circuit = TkCircuit(configuration)
