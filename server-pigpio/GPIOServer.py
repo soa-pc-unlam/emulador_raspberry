@@ -1,4 +1,5 @@
 import socket
+import errno
 import struct
 import threading
 import time
@@ -12,6 +13,9 @@ gpio_Notify = {}
 
 result_ok = 1
 result_nook = -1
+connectionCount = 1
+def log(message):
+    print(f"{datetime.now().strftime("%H:%M:%S.%f")} - ({connectionCount}) -  {message}")
 
 def bucle_temporizador():
     while True:
@@ -104,32 +108,44 @@ def response(cmd, p1, p2):
         req = '_PI_CMD_NB'
         setNotify(p1,p2)
         res = result_ok
+    # Notify Close
+    elif cmd == pigpio._PI_CMD_NC:
+        req = '_PI_CMD_NC'
+        setNotify(p1, p2)
+        res = result_ok
     # Get Ticks
     elif cmd == pigpio._PI_CMD_TICK:
         req = '_PI_CMD_TICK'
         val = time.perf_counter()
         res = int(time.perf_counter()*1000)
 
-        #_PI_CMD_NC = 21
 
-
-    print(f"request:{req}, cmd:{cmd}, p1: {p1}, p2: {p2}")
-    print(f"response: {res}")
+    log(f"request:{req}, cmd:{cmd}, p1: {p1}, p2: {p2}")
+    log(f"response: {res}")
     return res
 
 def handle_client(client_socket):
     try:
         while True:
             request = client_socket.recv(1024)
-            print(f"Message Received at {datetime.now().strftime("%H:%M:%S.%f")}")
+
+            if not request:
+                log("Component connection closed.")
+                break
+
             unpacked_values = struct.unpack('IIII', request)
             cmd, p1, p2, _ = unpacked_values
 
             dummy = b'Hello, World'
             client_socket.send(struct.pack('12sI', dummy, response(cmd, p1, p2)))
 
-    except Exception as e:
-        print(f"Error al manejar la conexión: {e}")
+    except socket.error as e1:
+        if e1.errno == errno.WSAECONNRESET:
+            log("Client connection closed.")
+            log("Raspberry Pi Server Listening...")
+
+    except Exception as e2:
+        log(f"General Exception: {e2}")
 
     finally:
         client_socket.close()
@@ -140,9 +156,9 @@ serversocket.bind(('127.0.0.1', 5000))
 serversocket.listen(5)
 
 while True:
-
+    log("Raspberry Pi Server Listening...")
     clientsocket, address = serversocket.accept()
-    print(f"Connection from {address}")
-
+    connectionCount = connectionCount + 1
+    log(f"Connection from {address}")
     client_handler = threading.Thread(target=handle_client, args=(clientsocket,))
     client_handler.start()
