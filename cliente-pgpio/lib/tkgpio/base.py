@@ -1,8 +1,8 @@
-from gpiozero.pins.mock import MockFactory, MockTriggerPin, MockPWMPin, MockChargingPin
-from gpiozero.pins.pigpio import PiGPIOFactory
-from gpiozero.pins.local import SPI
-from gpiozero import SPIBadChannel
-from gpiozero.devices import GPIOMeta, GPIOBase
+from ..gpiozero.pins.mock import MockFactory, MockTriggerPin, MockPWMPin, MockChargingPin
+from ..gpiozero.pins.pigpio import PiGPIOFactory
+from ..gpiozero.pins.local import SPI
+from ..gpiozero import SPIBadChannel
+from ..gpiozero.devices import GPIOMeta, GPIOBase
 from PIL import ImageTk, Image
 from time import sleep, perf_counter
 from os import path

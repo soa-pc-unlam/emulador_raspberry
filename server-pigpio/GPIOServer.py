@@ -20,6 +20,7 @@ def log(message):
 def bucle_temporizador():
     while True:
         time.sleep(5)
+        #gpio_state[21] = not gpio_state[21]
 
 # Crear un hilo para el bucle del temporizador
 temporizador_thread = threading.Thread(target=bucle_temporizador)

@@ -1,4 +1,4 @@
-from tkgpio import TkCircuit
+from lib.tkgpio.tkgpio import TkCircuit
 from json import load
 import os
 
@@ -13,7 +13,7 @@ circuit = TkCircuit(configuration)
 @circuit.run
 def main():
     from time import sleep
-    from gpiozero import LED, Button
+    from lib.gpiozero import LED, Button
 
     def button_pressed():
         print("Button pressed")

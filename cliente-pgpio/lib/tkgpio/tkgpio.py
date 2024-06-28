@@ -1,7 +1,7 @@
 from .base import TkDevice, SingletonMeta, MockSPI
 from .base import PreciseMockTriggerPin, PreciseMockFactory, PreciseMockChargingPin
-from gpiozero import Device
-from gpiozero.pins.mock import MockPWMPin, MockSPIDevice
+from ..gpiozero import Device
+from ..gpiozero.pins.mock import MockPWMPin, MockSPIDevice
 from PIL import ImageEnhance, Image, ImageDraw, ImageFont, ImageTk
 from tkinter import Tk, Frame, Label, Button, Scale, Canvas, HORIZONTAL, VERTICAL, CENTER
 from threading import Thread, Timer

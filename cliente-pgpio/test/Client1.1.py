@@ -1,5 +1,5 @@
 import os
-from gpiozero import LED
+from lib.gpiozero import LED
 from time import sleep
 
 os.environ["PIGPIO_ADDR"] = "127.0.0.1"

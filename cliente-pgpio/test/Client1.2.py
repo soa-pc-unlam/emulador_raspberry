@@ -1,8 +1,8 @@
 import os
-from gpiozero import Button
+from lib.gpiozero import Button
 from time import sleep
 
-from gpiozero.pins.pigpio import PiGPIOFactory
+from lib.gpiozero.pins.pigpio import PiGPIOFactory
 
 # os.environ["PIGPIO_ADDR"] = "127.0.0.1"
 # os.environ["PIGPIO_PORT"] = "5000"
@@ -16,7 +16,7 @@ def button_pressed():
 def button_released():
     print("Button Released")
 
-button = Button(11,pin_factory=factory)
+button = Button(11,hold_repeat=False, pin_factory=factory)
 button.when_pressed = button_pressed
 button.when_released = button_released
 
