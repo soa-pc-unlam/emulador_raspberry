@@ -1,21 +1,20 @@
 from lib.tkgpio.tkgpio import TkCircuit
 from json import load
 
-with open("Client4.json", "r") as file:
+with open("Client5.json", "r") as file:
     configuration = load(file)
 
 circuit = TkCircuit(configuration)
 @circuit.run
 def main():
     from time import sleep
-    from lib.gpiozero import LED, Button
+    from lib.gpiozero import Button
 
     def button_pressed():
-        led.on()
+        print("Pressed")
     def button_released():
-        led.off()
+        print("Released")
 
-    led = LED(21)
     button = Button(11)
 
     button.when_pressed = button_pressed

@@ -7,5 +7,9 @@
     ],
   "buttons": [
         {"x": 50, "y": 130, "name": "Boton 1", "pin": 11}
+    ],
+  "toggles": [
+        {"x": 150, "y": 150, "name": "Toggle ", "pin": 11, "off_label": "off", "on_label": "on"}
+
     ]
 }

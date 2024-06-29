@@ -244,7 +244,8 @@ class PiGPIOPin(PiPin):
                 raise PinInvalidState(
                     f'invalid state "{value}" for pin {self!r}')
         elif self.function == 'input':
-            raise PinSetInput(f'cannot set state of pin {self!r}')
+            #raise PinSetInput(f'cannot set state of pin {self!r}')
+            self.factory.connection.write(self._number, bool(value))
         else:
             # write forces pin to OUTPUT, hence the check above
             self.factory.connection.write(self._number, bool(value))
@@ -313,6 +314,28 @@ class PiGPIOPin(PiPin):
 
     def _call_when_changed(self, gpio, level, ticks):
         super()._call_when_changed(ticks, level)
+
+
+    def drive_high(self):
+        #assert self._function == 'input'
+        if self._change_state(True):
+            #if self._edges in ('both', 'rising') and self._when_changed is not None:
+            self._call_when_changed(self.number, True, self.factory.ticks())
+
+    def drive_low(self):
+        #assert self._function == 'input'
+        if self._change_state(False):
+            #if self._edges in ('both', 'falling') and self._when_changed is not None:
+            self._call_when_changed(self.factory.ticks(), False, self.factory.ticks())
+
+    def _change_state(self, value):
+        if self.state != value:
+            #t = monotonic()
+            self.state = value
+            #self.states.append(PinState(t - self._last_change, value))
+            #self._last_change = t
+            return True
+        return False
 
     def _enable_event_detect(self):
         self._callback = self.factory.connection.callback(
