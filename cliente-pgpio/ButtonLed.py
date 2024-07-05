@@ -1,7 +1,7 @@
 from lib.tkgpio import TkCircuit
 from json import load
 
-with open("Client4.json", "r") as file:
+with open("ButtonLed.json", "r") as file:
     configuration = load(file)
 
 circuit = TkCircuit(configuration)
