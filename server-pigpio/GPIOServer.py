@@ -10,6 +10,10 @@ from datetime import datetime
 gpio_state = {}
 gpio_mode = {}
 gpio_Notify = {}
+gpio_pwm_frequency = {}
+gpio_pwm_range = {}
+gpio_pwm = {}
+gpio_pwm_duty_cycle = {}
 
 result_ok = 1
 result_nook = -1
@@ -25,6 +29,54 @@ def bucle_temporizador():
 # Crear un hilo para el bucle del temporizador
 temporizador_thread = threading.Thread(target=bucle_temporizador)
 temporizador_thread.start()
+
+
+def setPWMDutyCycle(pin, value):
+    gpio_pwm_duty_cycle[pin] = value
+
+def getPWMDutyCycle(pin):
+    value = -1
+    if pin in gpio_pwm_duty_cycle:
+        value = gpio_pwm_duty_cycle[pin]
+    else:
+        gpio_pwm_duty_cycle[pin] = 1000
+        value = gpio_pwm_duty_cycle[pin]
+    return value
+
+def setPWM(pin, value):
+    gpio_pwm[pin] = value
+
+def getPWM(pin):
+    value = -1
+    if pin in gpio_pwm:
+        value = gpio_pwm[pin]
+    else:
+        gpio_pwm[pin] = 0
+        value = gpio_pwm[pin]
+    return value
+def setPWMRange(pin, value):
+    gpio_pwm_range[pin] = value
+
+def getPWMRange(pin):
+    value = -1
+    if pin in gpio_pwm_range:
+        value = gpio_pwm_range[pin]
+    else:
+        gpio_pwm_range[pin] = 1
+        value = gpio_pwm_range[pin]
+    return value
+
+def setPWMFrequency(pin, value):
+    gpio_pwm_frequency[pin] = value
+
+def getPWMFrequency(pin):
+    value = -1
+    if pin in gpio_pwm_frequency:
+        value = gpio_pwm_frequency[pin]
+    else:
+        gpio_pwm_frequency[pin] = 0
+        value = gpio_pwm_frequency[pin]
+    return value
 
 def setNotify(pin, value):
     gpio_Notify[pin] = value
@@ -119,6 +171,30 @@ def response(cmd, p1, p2):
         req = '_PI_CMD_TICK'
         val = time.perf_counter()
         res = int(time.perf_counter()*1000)
+    # Set PWM Frequency
+    elif cmd == pigpio._PI_CMD_PFS:
+        req = '_PI_CMD_PFS'
+        setPWMFrequency(p1, p2)
+        res = result_ok
+    # Set PWM Range
+    elif cmd == pigpio._PI_CMD_PRS:
+        req = '_PI_CMD_PRS'
+        setPWMRange(p1, p2)
+        res = result_ok
+    # Set PWM
+    elif cmd == pigpio._PI_CMD_PWM:
+        req = '_PI_CMD_PWM'
+        setPWM(p1, p2)
+        res = result_ok
+    # Get PWM Range
+    elif cmd == pigpio._PI_CMD_PRG:
+        req = '_PI_CMD_PRG'
+        res = getPWMRange(p1)
+    # Get PWM Duty Cycle
+    elif cmd == pigpio._PI_CMD_GDC:
+        req = '_PI_CMD_GDC'
+        res = getPWMDutyCycle(p1)
+
 
 
     log(f"request:{req}, cmd:{cmd}, p1: {p1}, p2: {p2}")

@@ -1,0 +1,12 @@
+{
+  "name": "Cliente 2",
+  "width": 700,
+  "height": 550,
+  "motors": [
+        {"x": 316, "y": 80, "name": "DC Motor", "forward_pin": 22, "backward_pin": 21}
+    ],
+  "toggles": [
+        {"x": 150, "y": 150, "name": "Toggle ", "pin": 11, "off_label": "off", "on_label": "on"}
+
+    ]
+}
