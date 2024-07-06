@@ -13,5 +13,8 @@
         {"x": 50, "y": 130, "name": "Boton 1", "pin": 15},
         {"x": 100, "y": 130, "name": "Boton 2", "pin": 16},
         {"x": 150, "y": 130, "name": "Boton 3", "pin": 17}
+    ],
+  "motion_sensors": [
+        {"x": 350, "y": 170, "name": "Motion Sensor", "pin": 25, "detection_radius": 50, "delay_duration": 5, "block_duration": 3 }
     ]
 }

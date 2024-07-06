@@ -1,0 +1,11 @@
+{
+  "name": "Cliente 2",
+  "width": 700,
+  "height": 550,
+  "buzzers": [
+        {"x": 150, "y": 50, "name": "Buzzer", "pin": 23, "frequency": 440}
+  ],
+  "motion_sensors": [
+        {"x": 350, "y": 170, "name": "Motion Sensor", "pin": 25, "detection_radius": 50, "delay_duration": 5, "block_duration": 3 }
+    ]
+}
