@@ -10,14 +10,21 @@ def main():
     from time import sleep
     from lib.gpiozero import Motor, Button
 
-
+    speed= 0
     motor = Motor(backward=21, forward=22)
-    switch = Button(11)
+    switchSpeed= Button(11)
+    btnReversePolarity = Button(12)
 
 
     while True:
-        if switch.is_pressed:
-            motor.backward(1)
+
+        if switchSpeed.is_pressed:
+            speed=1
         else:
-            motor.backward(0.2)
+            speed=0.1
+
+        if btnReversePolarity.is_pressed:
+            motor.forward(speed)
+        else:
+            motor.backward(speed)
         sleep(0.1)

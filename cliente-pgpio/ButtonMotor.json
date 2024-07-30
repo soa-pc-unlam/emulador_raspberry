@@ -5,8 +5,11 @@
   "motors": [
         {"x": 316, "y": 80, "name": "DC Motor", "forward_pin": 22, "backward_pin": 21}
     ],
+  "buttons": [
+        {"x": 150, "y": 150, "name": "Invertir polaridad", "pin": 12}
+    ],
   "toggles": [
-        {"x": 150, "y": 150, "name": "Toggle ", "pin": 11, "off_label": "off", "on_label": "on"}
+        {"x": 150, "y": 250, "name": "velocidad ", "pin": 11, "off_label": "Lento", "on_label": "Rapido"}
 
     ]
 }
