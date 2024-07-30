@@ -232,7 +232,7 @@ class PiGPIOPin(PiPin):
                 self.factory.connection.get_PWM_range(self._number)
                 )
         else:
-            return bool(self.factory.connection.read(self._number))
+            return bool(self.factory    .connection.read(self._number))
 
     def _set_state(self, value):
         if self._pwm:
@@ -319,13 +319,13 @@ class PiGPIOPin(PiPin):
     def drive_high(self):
         #assert self._function == 'input'
         if self._change_state(True):
-            if self._get_edges in ('both', 'rising') and self._when_changed is not None:
+           # if self._get_edges in ('both', 'rising') and self._when_changed is not None:
                 self._call_when_changed(self.number, True, self.factory.ticks())
 
     def drive_low(self):
         #assert self._function == 'input'
         if self._change_state(False):
-            if self._get_edges in ('both', 'falling') and self._when_changed is not None:
+           # if self._get_edges in ('both', 'falling') and self._when_changed is not None:
                 self._call_when_changed(self.factory.ticks(), False, self.factory.ticks())
 
     def _change_state(self, value):
@@ -333,7 +333,7 @@ class PiGPIOPin(PiPin):
             #t = monotonic()
             self.state = value
             #self.states.append(PinState(t - self._last_change, value))
-            #self._last_change = t
+            #self._last_change = tfre
             return True
         return False
 

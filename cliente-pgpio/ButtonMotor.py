@@ -19,5 +19,5 @@ def main():
         if switch.is_pressed:
             motor.backward(1)
         else:
-            motor.backward(0)
+            motor.backward(0.2)
         sleep(0.1)
