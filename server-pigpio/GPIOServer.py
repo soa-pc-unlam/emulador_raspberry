@@ -17,14 +17,21 @@ gpio_pwm_duty_cycle = {}
 
 result_ok = 1
 result_nook = -1
-connectionCount = 1
+sockedId = 0
+
+client_sockets = {}
+client_socket = None
 def log(message):
-    print(f"{datetime.now().strftime("%H:%M:%S.%f")} - ({connectionCount}) -  {message}")
+    print(f"{datetime.now().strftime("%H:%M:%S.%f")} - ({sockedId}) -  {message}")
 
 def bucle_temporizador():
     while True:
-        time.sleep(5)
-        #gpio_state[21] = not gpio_state[21]
+        time.sleep(20)
+        # socket = client_socket
+        #
+        # seq, flags, tick, level = 1, 11, 111, 1
+        # socket.send(struct.pack('HHII', seq, flags, tick, level))
+        # #gpio_state[21] = not gpio_state[21]
 
 # Crear un hilo para el bucle del temporizador
 temporizador_thread = threading.Thread(target=bucle_temporizador)
@@ -201,7 +208,7 @@ def response(cmd, p1, p2):
     log(f"response: {res}")
     return res
 
-def handle_client(client_socket):
+def handle_client(socketId, client_socket):
     try:
         while True:
             request = client_socket.recv(1024)
@@ -221,11 +228,14 @@ def handle_client(client_socket):
             log("Client connection closed.")
             log("Raspberry Pi Server Listening...")
 
+
     except Exception as e2:
         log(f"General Exception: {e2}")
 
     finally:
+        del client_sockets[sockedId]
         client_socket.close()
+
 
 serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 serversocket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
@@ -235,7 +245,12 @@ serversocket.listen(5)
 while True:
     log("Raspberry Pi Server Listening...")
     clientsocket, address = serversocket.accept()
-    connectionCount = connectionCount + 1
+    sockedId = sockedId + 1
     log(f"Connection from {address}")
-    client_handler = threading.Thread(target=handle_client, args=(clientsocket,))
-    client_handler.start()
+
+    if sockedId == 1:
+        client_socket = clientsocket
+    elif sockedId > 1:
+        client_sockets[sockedId] = clientsocket
+        client_handler = threading.Thread(target=handle_client, args=(sockedId, clientsocket,))
+        client_handler.start()
