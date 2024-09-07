@@ -1,4 +1,5 @@
-from .tkgpio import TkCircuit
+from lib.tkgpio import TkCircuit
+import time
 
 class Adafruit_CharLCD(object):
     """Class to represent and interact with an HD44780 character LCD display."""

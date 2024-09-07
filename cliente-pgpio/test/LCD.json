@@ -1,0 +1,8 @@
+{
+  "name": "Cliente 2",
+  "width": 700,
+  "height": 550,
+   "lcds": [
+        {"x": 30, "y": 40, "name": "LCD", "pins":[2, 3, 4, 5, 6, 7], "columns": 16, "lines": 2}
+    ]
+}
