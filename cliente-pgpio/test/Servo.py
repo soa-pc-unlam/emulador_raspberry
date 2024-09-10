@@ -18,12 +18,12 @@ def main():
 
     while True:
 
-        if btnAngleInc.is_pressed:
-            angle += 0.20
+        #if btnAngleInc.is_pressed:
+        angle += 0.20
 
         Servo.value= angle
 
         if angle == 1:
             angle=0
 
-        sleep(0.1)
+        sleep(.05)

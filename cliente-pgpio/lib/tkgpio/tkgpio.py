@@ -369,9 +369,9 @@ class TkServo(TkDevice):
         self.update()
         
     def _update_angle(self):
-        if self._pin._frequency == None:
+        if self._pin.frequency == None:
             return
-        pulse_width = self._pin._state * (1 / self._pin._frequency)
+        pulse_width = self._pin.state * (1 / self._pin.frequency)
         pulse_width = min(self._max_pulse_width, max(pulse_width, self._min_pulse_width))
         
         a = (self._max_angle - self._min_angle) / (self._max_pulse_width - self._min_pulse_width)
