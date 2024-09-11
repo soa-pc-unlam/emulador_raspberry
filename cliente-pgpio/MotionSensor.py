@@ -1,7 +1,7 @@
 from lib.tkgpio import TkCircuit
 from json import load
 
-with open("MotionSensor_Buzzer.json", "r") as file:
+with open("MotionSensor.json", "r") as file:
     configuration = load(file)
 
 circuit = TkCircuit(configuration)
@@ -13,9 +13,10 @@ def main():
     #funciones
     def motion_detected():
         buzzer.on()
-
+        print("detecta")
     def motion_no_detected():
         buzzer.off()
+        print("no detecta")
 
     #Actuadores
     buzzer = Buzzer(23)

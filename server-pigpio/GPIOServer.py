@@ -110,7 +110,8 @@ def setState(pin, value):
 
 def getState(pin):
     value = -1
-    if pin in gpio_state:convalue = gpio_state[pin]
+    if pin in gpio_state:
+        value = gpio_state[pin]
     else:
         gpio_state[pin] = 0
         value = gpio_state[pin]
