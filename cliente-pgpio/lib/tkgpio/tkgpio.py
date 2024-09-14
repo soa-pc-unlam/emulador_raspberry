@@ -419,10 +419,9 @@ class TkButton(TkDevice):
         
     def _change_pin(self, is_press):
         if is_press:
-            self._pin.drive_low()
-        else:
             self._pin.drive_high()
-            
+        else:
+            self._pin.drive_low()
 
 class TkToggle(TkDevice):
     def __init__(self, root, x, y, name, pin, on_label="ON", off_label="OFF", is_on=False):
