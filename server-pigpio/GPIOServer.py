@@ -43,19 +43,6 @@ def getPWMDutyCycle(pin):
         value = gpio_pwm_duty_cycle[pin]
     return value
 
-
-'''
-def setPWM(pin, value):
-    gpio_pwm[pin] = value
-
-def getPWM(pin):
-    value = -1
-    if pin in gpio_pwm:
-        value = gpio_pwm[pin]
-    else:
-        gpio_pwm[pin] = 0
-        value = gpio_pwm[pin]
-    return value'''
 def setPWMRange(pin, value):
     gpio_pwm_range[pin] = value
 
@@ -178,6 +165,9 @@ def response(cmd, p1, p2):
         req = '_PI_CMD_PFS'
         setPWMFrequency(p1, p2)
         res = result_ok
+    elif cmd == pigpio._PI_CMD_PFG:
+        req = '_PI_CMD_PFG'
+        res = getPWMFrequency(p1)
     # Set PWM Range
     elif cmd == pigpio._PI_CMD_PRS:
         req = '_PI_CMD_PRS'

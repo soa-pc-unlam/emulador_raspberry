@@ -13,8 +13,9 @@ def main():
 
 
     btnAngleInc= Button(12)
+    servo = Servo(24)
 
-    angle =0
+    angle =90
 
     while True:
 
