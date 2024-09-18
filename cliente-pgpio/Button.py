@@ -1,5 +1,4 @@
-from lib.tkgpio.tkgpio import TkCircuit
-from json import load
+from lib.CreateCircuit import create_circuit
 from time import sleep
 from lib.gpiozero import Button
 
@@ -23,14 +22,4 @@ def main():
         sleep(0.1)
 
 
-def create_circuit():
-    '''Zona donde se crea el circuito gráfico'''
-    with open("Button.json", "r") as file:
-        configuration = load(file)
-
-    circuit = TkCircuit(configuration)
-
-    # Usar el decorador @circuit.run con la función main
-    circuit.run(main)
-
-create_circuit()
+create_circuit("Button.json", main)

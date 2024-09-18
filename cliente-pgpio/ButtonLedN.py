@@ -1,14 +1,8 @@
-from lib.tkgpio import TkCircuit
-from json import load
+from lib.CreateCircuit import create_circuit
+from time import sleep
+from lib.gpiozero import LED, Button
 
-with open("ButtonLedN.json", "r") as file:
-    configuration = load(file)
-
-circuit = TkCircuit(configuration)
-@circuit.run
 def main():
-    from time import sleep
-    from lib.gpiozero import LED, Button
 
     def button1_pressed():
         led1.on()
@@ -46,3 +40,5 @@ def main():
 
     while True:
         sleep(0.1)
+
+create_circuit("ButtonLedN.json", main)

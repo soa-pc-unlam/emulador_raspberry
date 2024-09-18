@@ -1,14 +1,8 @@
-from lib.tkgpio.tkgpio import TkCircuit
-from json import load
+from time import sleep
+from lib.gpiozero import Button
+from lib.CreateCircuit import create_circuit
 
-with open("ButtonOnly.json", "r") as file:
-    configuration = load(file)
-
-circuit = TkCircuit(configuration)
-@circuit.run
 def main():
-    from time import sleep
-    from lib.gpiozero import Button
 
     def button_pressed():
         print("Pressed")
@@ -32,3 +26,5 @@ def main():
 
     while True:
         sleep(0.1)
+
+create_circuit("ButtonOnly.json", main)

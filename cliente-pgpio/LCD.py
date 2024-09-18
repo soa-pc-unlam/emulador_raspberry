@@ -1,18 +1,9 @@
-from lib.gpiozero import Servo, Button
-from lib.tkgpio import TkCircuit
-from json import load
+from lib.gpiozero import Button
+from lib.CreateCircuit import create_circuit
 from time import sleep
 
-with open("LCD.json", "r") as file:
-    configuration = load(file)
-
-circuit = TkCircuit(configuration)
-valor = 0  # Variable global
-
-@circuit.run
 def main():
     from Adafruit_CharLCD import Adafruit_CharLCD
-    from time import sleep
 
     lcd = Adafruit_CharLCD(2, 3, 4, 5, 6, 7, 16, 2)
     button = Button(11)
@@ -33,3 +24,5 @@ def main():
 
     while True:
         sleep(0.1)
+
+create_circuit("LCD.json", main)

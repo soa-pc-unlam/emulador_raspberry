@@ -1,14 +1,7 @@
-from lib.tkgpio import TkCircuit
-from json import load
-
-with open("ButtonMotor.json", "r") as file:
-    configuration = load(file)
-
-circuit = TkCircuit(configuration)
-@circuit.run
+from time import sleep
+from lib.gpiozero import Motor, Button
+from lib.CreateCircuit import create_circuit
 def main():
-    from time import sleep
-    from lib.gpiozero import Motor, Button
 
     speed= 0
     motor = Motor(backward=21, forward=22)
@@ -28,3 +21,6 @@ def main():
         else:
             motor.backward(speed)
         sleep(0.1)
+
+
+create_circuit("ButtonMotor.json", main)

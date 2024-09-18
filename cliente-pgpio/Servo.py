@@ -1,6 +1,5 @@
 from lib.gpiozero import Servo,Button
-from lib.tkgpio import TkCircuit
-from json import load
+from lib.CreateCircuit import create_circuit
 from time import sleep
 
 
@@ -36,14 +35,4 @@ def main():
             angle_degree=0
 
 
-def create_circuit():
-    '''Zona donde se crea el circuito gráfico'''
-    with open("Servo.json", "r") as file:
-        configuration = load(file)
-
-    circuit = TkCircuit(configuration)
-
-    # Usar el decorador @circuit.run con la función main
-    circuit.run(main)
-
-create_circuit()
+create_circuit("Servo.json",main)

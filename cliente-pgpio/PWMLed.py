@@ -1,21 +1,14 @@
 from lib.gpiozero import PWMLED
-from lib.tkgpio import TkCircuit
-from json import load
+from time import sleep
+from lib.gpiozero import Button
+from lib.CreateCircuit import create_circuit
 
-with open("PWMLed.json", "r") as file:
-    configuration = load(file)
 
-circuit = TkCircuit(configuration)
-@circuit.run
 def main():
-    from time import sleep
-    from lib.gpiozero import Button
 
     led = PWMLED(21)
     switchLighting= Button(11)
     btnOffLed = Button(12)
-
-    ligthing =0
 
     while True:
 
@@ -30,3 +23,5 @@ def main():
         led.value=ligthing
 
         sleep(0.1)
+
+create_circuit("PWMLed.json", main)

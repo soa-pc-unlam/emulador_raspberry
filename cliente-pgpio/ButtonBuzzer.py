@@ -1,14 +1,12 @@
-from lib.tkgpio import TkCircuit
-from json import load
+from lib.CreateCircuit import create_circuit
+from time import sleep
+from lib.gpiozero import LED, Button, Buzzer
 
-with open("ButtonBuzzer.json", "r") as file:
-    configuration = load(file)
 
-circuit = TkCircuit(configuration)
-@circuit.run
 def main():
-    from time import sleep
-    from lib.gpiozero import LED, Button,Buzzer
+    led1 = LED(21)
+    led2 = LED(22)
+    buzzer = Buzzer(23)
 
     def button1_pressed():
         led1.on()
@@ -30,9 +28,6 @@ def main():
         print("apaga")
         buzzer.off()
 
-    led1 = LED(21)
-    led2 = LED(22)
-    buzzer = Buzzer(23)
 
     button1 = Button(15)
     button2 = Button(16)
@@ -48,3 +43,5 @@ def main():
 
     while True:
         sleep(0.1)
+
+create_circuit("ButtonBuzzer.json", main)

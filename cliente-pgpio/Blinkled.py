@@ -1,14 +1,8 @@
-from lib.tkgpio.tkgpio import TkCircuit
-from json import load
+from time import sleep
+from lib.gpiozero import LED
+from lib.CreateCircuit import create_circuit
 
-with open("Blinkled.json", "r") as file:
-    configuration = load(file)
-
-circuit = TkCircuit(configuration)
-@circuit.run
 def main():
-    from time import sleep
-    from lib.gpiozero import LED
 
     led = LED(21)
     while True:
@@ -18,3 +12,5 @@ def main():
         print("apaga")
         led.off()
         sleep(1)
+
+create_circuit("Blinkled.json", main)

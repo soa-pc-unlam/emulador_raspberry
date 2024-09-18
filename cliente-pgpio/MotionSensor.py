@@ -1,11 +1,7 @@
 from lib.tkgpio import TkCircuit
+from lib.CreateCircuit import create_circuit
 from json import load
 
-with open("MotionSensor.json", "r") as file:
-    configuration = load(file)
-
-circuit = TkCircuit(configuration)
-@circuit.run
 def main():
     from time import sleep
     from lib.gpiozero import Buzzer,MotionSensor
@@ -30,3 +26,5 @@ def main():
 
     while True:
         sleep(0.1)
+
+create_circuit("MotionSensor.json", main)
