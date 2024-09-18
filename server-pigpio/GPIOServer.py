@@ -17,14 +17,31 @@ gpio_pwm_duty_cycle = {}
 
 result_ok = 1
 result_nook = -1
-connectionCount = 1
-def log(message):
-    print(f"{datetime.now().strftime("%H:%M:%S.%f")} - ({connectionCount}) -  {message}")
+
+request_sockets = {}
+event_sockets = {}
+def log(message, address):
+    print(f"{datetime.now().strftime("%H:%M:%S.%f")} - ({address}) -  {message}")
 
 def bucle_temporizador():
     while True:
-        time.sleep(5)
-        #gpio_state[21] = not gpio_state[21]
+        time.sleep(0.01)
+        for pin, notify in gpio_Notify.items():
+            if notify:
+                setNotify(pin, False)
+                seq = 1
+                flags = 0
+                tick = int(time.perf_counter()*1000)
+                level = 0
+
+                for pin_state,state in gpio_state.items():
+                    if state:
+                        level += 2 ** pin_state
+
+                for socket in event_sockets.values():
+                    socket.send(struct.pack('HHII', seq, flags, tick, level))
+
+
 
 # Crear un hilo para el bucle del temporizador
 temporizador_thread = threading.Thread(target=bucle_temporizador)
@@ -42,6 +59,7 @@ def getPWMDutyCycle(pin):
         gpio_pwm_duty_cycle[pin] = 1000
         value = gpio_pwm_duty_cycle[pin]
     return value
+
 
 def setPWMRange(pin, value):
     gpio_pwm_range[pin] = value
@@ -103,13 +121,15 @@ def getState(pin):
         gpio_state[pin] = 0
         value = gpio_state[pin]
     return value
-def response(cmd, p1, p2):
+
+def response(address, cmd, p1, p2):
     req = 'unknown command'
     res = result_nook
     # First Connection -> Bit Read? // lastLevel
     if cmd == pigpio._PI_CMD_BR1:
         req = '_PI_CMD_BR1'
         res = 10
+        res = 0
     # Version
     elif cmd == pigpio._PI_CMD_HWVER:
         req = '_PI_CMD_HWVER'
@@ -140,6 +160,7 @@ def response(cmd, p1, p2):
     elif cmd == pigpio._PI_CMD_WRITE:
         req = '_PI_CMD_WRITE'
         setState(p1, p2)
+        setNotify(p1, 1)
         res = result_ok
     # Read
     elif cmd == pigpio._PI_CMD_READ:
@@ -148,12 +169,15 @@ def response(cmd, p1, p2):
     # Notify Begin
     elif cmd == pigpio._PI_CMD_NB:
         req = '_PI_CMD_NB'
-        setNotify(p1,p2)
+        
+        setNotify(p2,p1)
         res = result_ok
     # Notify Close
     elif cmd == pigpio._PI_CMD_NC:
         req = '_PI_CMD_NC'
-        setNotify(p1, p2)
+        
+        if p2 in gpio_Notify:
+            del gpio_Notify[p2]
         res = result_ok
     # Get Ticks
     elif cmd == pigpio._PI_CMD_TICK:
@@ -173,13 +197,15 @@ def response(cmd, p1, p2):
         req = '_PI_CMD_PRS'
         setPWMRange(p1, p2)
         res = result_ok
-        # Get PWM Range
+    
+    # Get PWM Range
     elif cmd == pigpio._PI_CMD_PRG:
         req = '_PI_CMD_PRG'
         res = getPWMRange(p1)
     # Set PWM Duty Cycle
     elif cmd == pigpio._PI_CMD_PWM:
         req = '_PI_CMD_PWM'
+    
         setPWMDutyCycle(p1, p2)
         res = result_ok
     # Get PWM Duty Cycle
@@ -187,35 +213,45 @@ def response(cmd, p1, p2):
         req = '_PI_CMD_GDC'
         res = getPWMDutyCycle(p1)
 
-    log(f"request:{req}, cmd:{cmd}, p1: {p1}, p2: {p2}")
-    log(f"response: {res}")
+    log(f"request:{req}, cmd:{cmd}, p1: {p1}, p2: {p2}", address)
+    log(f"response: {res}", address)
     return res
 
-def handle_client(client_socket):
+
+def handle_client(address, client_socket):
     try:
         while True:
             request = client_socket.recv(1024)
 
             if not request:
-                log("Component connection closed.")
+
+                log("Component connection closed.", address)
                 break
 
             unpacked_values = struct.unpack('IIII', request)
             cmd, p1, p2, _ = unpacked_values
 
             dummy = b'Hello, World'
-            client_socket.send(struct.pack('12sI', dummy, response(cmd, p1, p2)))
+
+            client_socket.send(struct.pack('12sI', dummy, response(address,cmd, p1, p2)))
 
     except socket.error as e1:
         if e1.errno == errno.WSAECONNRESET:
-            log("Client connection closed.")
-            log("Raspberry Pi Server Listening...")
+            log("Client connection closed.", address)
+            log("Raspberry Pi Server Listening...", address)
+
 
     except Exception as e2:
-        log(f"General Exception: {e2}")
+
+        log(f"General Exception: {e2}", address)
 
     finally:
+        if address in request_sockets:
+            del request_sockets[address]
+        if address in event_sockets:
+            del event_sockets[address]
         client_socket.close()
+
 
 serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 serversocket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
@@ -223,9 +259,17 @@ serversocket.bind(('127.0.0.1', 5000))
 serversocket.listen(5)
 
 while True:
-    log("Raspberry Pi Server Listening...")
-    clientsocket, address = serversocket.accept()
-    connectionCount = connectionCount + 1
-    log(f"Connection from {address}")
-    client_handler = threading.Thread(target=handle_client, args=(clientsocket,))
-    client_handler.start()
+    log(f"Raspberry Pi Server Listening...", "")
+
+    requestSocket, address = serversocket.accept()
+    request_sockets[address[1]] = requestSocket
+    request_handler1 = threading.Thread(target=handle_client, args=(address[1], requestSocket,))
+    log(f"Request Socket: {address[1]}. ", address[1])
+
+    eventSocket, address = serversocket.accept()
+    event_sockets[address[1]] = eventSocket
+    request_handler2 = threading.Thread(target=handle_client, args=(address[1], eventSocket,))
+    log(f"Event Socket: {address[1]}. ",address[1])
+
+    request_handler1.start()
+    request_handler2.start()
