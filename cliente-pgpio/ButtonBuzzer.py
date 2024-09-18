@@ -23,9 +23,11 @@ def main():
         led2.off()
 
     def button3_pressed():
+        print("prende")
         buzzer.on()
 
     def button3_released():
+        print("apaga")
         buzzer.off()
 
     led1 = LED(21)
