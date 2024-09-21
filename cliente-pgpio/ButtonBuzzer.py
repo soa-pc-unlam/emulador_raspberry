@@ -29,9 +29,9 @@ def main():
         buzzer.off()
 
 
-    button1 = Button(15)
-    button2 = Button(16)
-    button3 = Button(17)
+    button1 = Button(15, pull_up=False)
+    button2 = Button(16, pull_up=False)
+    button3 = Button(17, pull_up=False)
 
     button1.when_pressed = button1_pressed
     button1.when_released = button1_released

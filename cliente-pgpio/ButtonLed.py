@@ -10,7 +10,7 @@ def main():
         led.off()
 
     led = LED(21)
-    button = Button(11)
+    button = Button(11, pull_up=False)
 
     button.when_pressed = button_pressed
     button.when_released = button_released

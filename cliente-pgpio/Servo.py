@@ -13,9 +13,6 @@ def map_value(x, in_min, in_max, out_min, out_max):
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
 def main():
-
-
-    btnAngleInc= Button(12)
     servo = Servo(24)
     angle_degree=0
     servo_motion_angle=0
@@ -23,7 +20,7 @@ def main():
     while True:
 
         angle_degree=angle_degree+INCREMENT
-        servo_motion_angle=map_value(angle_degree,IN_MIN,IN_MAX,OUT_MIN,OUT_MAX)
+        servo_motion_angle = map_value(angle_degree,IN_MIN,IN_MAX,OUT_MIN,OUT_MAX)
 
         servo.value=servo_motion_angle
         print("\nangulo:  " + str(angle_degree))

@@ -5,8 +5,8 @@ def main():
 
     speed= 0
     motor = Motor(backward=21, forward=22)
-    switchSpeed= Button(11)
-    btnReversePolarity = Button(12)
+    switchSpeed= Button(11, pull_up=False)
+    btnReversePolarity = Button(12, pull_up=False)
 
 
     while True:

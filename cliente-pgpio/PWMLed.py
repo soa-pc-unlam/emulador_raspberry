@@ -8,7 +8,7 @@ def main():
 
     led = PWMLED(21)
     switchLighting= Button(11)
-    btnOffLed = Button(12)
+    btnOffLed = Button(12, pull_up=False)
 
     while True:
 

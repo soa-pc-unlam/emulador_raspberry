@@ -7,7 +7,7 @@ def main():
     from Adafruit_CharLCD import Adafruit_CharLCD
 
     lcd = Adafruit_CharLCD(2, 3, 4, 5, 6, 7, 16, 2)
-    button = Button(11)
+    button = Button(11, pull_up=False)
 
     def show_sensor_values():
         global valor

@@ -15,8 +15,8 @@ def main():
     def button_released1():
         print("Released 1")
 
-    button = Button(8)
-    button1 = Button(9)
+    button = Button(8, pull_up=False)
+    button1 = Button(9, pull_up=False)
 
     button.when_pressed = button_pressed
     button.when_released = button_released

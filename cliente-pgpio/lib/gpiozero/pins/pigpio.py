@@ -335,7 +335,7 @@ class PiGPIOPin(PiPin):
             #t = monotonic()
             self.state = value
             #self.states.append(PinState(t - self._last_change, value))
-            #self._last_change = tfre
+            #self._last_change = t
             return True
         return False
 
