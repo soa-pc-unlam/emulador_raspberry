@@ -21,7 +21,7 @@ result_nook = -1
 request_sockets = {}
 event_sockets = {}
 def log(message, address):
-    print(f"{datetime.now().strftime("%H:%M:%S.%f")} - ({address}) -  {message}")
+    print(f"({address}) -  {message}")
 
 def bucle_temporizador():
     while True:
@@ -255,7 +255,7 @@ def handle_client(address, client_socket):
 
 serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 serversocket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-serversocket.bind(('127.0.0.1', 5000))
+serversocket.bind(('0.0.0.0', 5000))
 serversocket.listen(5)
 
 while True:

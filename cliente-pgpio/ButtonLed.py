@@ -1,16 +1,19 @@
 from time import sleep
 from lib.gpiozero import LED, Button
-from lib.CreateCircuit import create_circuit
+
+from lib.CircuitPlatform import Circuit_Platform
 
 
 def main():
     def button_pressed():
+        print("presiona boton")
         led.on()
     def button_released():
+        print("suelta boton")
         led.off()
 
-    led = LED(21)
-    button = Button(11, pull_up=False)
+    led = LED(18)
+    button = Button(17, pull_up=False)
 
     button.when_pressed = button_pressed
     button.when_released = button_released
@@ -18,4 +21,8 @@ def main():
     while True:
         sleep(0.1)
 
-create_circuit("ButtonLed.json", main)
+if __name__ == "__main__":
+    #se verifica si se esta ejcutando en simulador o la Raspberry fisica.
+    #Si se ejecuta en el simulador, se crea el circuito graifco qu esta en el archivo
+    #Json
+    Circuit_Platform.check_plataform_simulator("ButtonLed.json", main)

@@ -19,6 +19,7 @@ class Circuit_Platform:
                 cls._create_circuit(nameFileJson, decoraterFunction)
             else:
                 print("Este script está corriendo en una Raspberry Pi física.")
+                decoraterFunction()
 
         except Exception as e:
             # Captura cualquier excepción y la maneja

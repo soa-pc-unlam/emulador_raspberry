@@ -1,6 +1,4 @@
-from math import trunc
 
-from lib.CreateCircuit import create_circuit
 from time import sleep
 from lib.gpiozero import Button
 
