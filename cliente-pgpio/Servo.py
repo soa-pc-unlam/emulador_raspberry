@@ -1,5 +1,6 @@
 from lib.gpiozero import Servo,Button
-from lib.CreateCircuit import create_circuit
+
+from lib.CircuitPlatform import Circuit_Platform
 from time import sleep
 
 
@@ -13,7 +14,7 @@ def map_value(x, in_min, in_max, out_min, out_max):
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
 def main():
-    servo = Servo(24)
+    servo = Servo(18)
     angle_degree=0
     servo_motion_angle=0
 
@@ -32,4 +33,8 @@ def main():
             angle_degree=0
 
 
-create_circuit("Servo.json",main)
+if __name__ == "__main__":
+    #se verifica si se esta ejcutando en simulador o la Raspberry fisica.
+    #Si se ejecuta en el simulador, se crea el circuito graifco qu esta en el archivo
+    #Json
+    Circuit_Platform.check_plataform_simulator("Servo.json", main)

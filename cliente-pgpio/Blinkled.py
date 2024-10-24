@@ -1,11 +1,11 @@
 from time import sleep
 from lib.gpiozero import LED
-
+    
 from lib.CircuitPlatform import Circuit_Platform
 
 def main():
 
-    led = LED(18)
+    led = LED(17)
     while True:
         print("prende")
         led.on()

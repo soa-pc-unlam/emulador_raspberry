@@ -12,8 +12,8 @@ def main():
         print("suelta boton")
         led.off()
 
-    led = LED(18)
-    button = Button(17, pull_up=False)
+    led = LED(17)
+    button = Button(22, pull_up=False)
 
     button.when_pressed = button_pressed
     button.when_released = button_released
