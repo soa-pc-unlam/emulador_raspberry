@@ -3,9 +3,15 @@ import errno
 import struct
 import threading
 import time
+import traceback
+
 
 import pigpio
 from datetime import datetime
+
+MSGLEN= 16
+
+number_pack=0
 
 gpio_state = {}
 gpio_mode = {}
@@ -218,7 +224,9 @@ def response(address, cmd, p1, p2):
     return res
 
 
+
 def handle_client(address, client_socket):
+    global number_pack
     try:
         while True:
             request = client_socket.recv(1024)
@@ -227,14 +235,22 @@ def handle_client(address, client_socket):
 
                 log("Component connection closed.", address)
                 break
-
+            
+            print("\n**recibe:"+str(request))
             unpacked_values = struct.unpack('IIII', request)
             cmd, p1, p2, _ = unpacked_values
 
-            dummy = b'Hello, World'
+            number_pack=number_pack+1
+            dummy=str(number_pack+1)
+            dummy = dummy.encode('utf-8')
 
-            client_socket.send(struct.pack('12sI', dummy, response(address,cmd, p1, p2)))
-
+            print("antees de pack")
+            pack_data=struct.pack('12sI', dummy, response(address,cmd, p1, p2))
+            print("despues de pack")
+            print("antes desend")
+            print("envia;"+str(pack_data))
+            client_socket.send(pack_data)
+            print("despues de send")
     except socket.error as e1:
         if e1.errno == errno.WSAECONNRESET:
             log("Client connection closed.", address)
@@ -244,6 +260,9 @@ def handle_client(address, client_socket):
     except Exception as e2:
 
         log(f"General Exception: {e2}", address)
+        tb = traceback.extract_tb(e2.__traceback__)
+        linea_error = tb[-1].lineno
+        print(f"El error ocurrió en la línea: {linea_error}")
 
     finally:
         if address in request_sockets:
