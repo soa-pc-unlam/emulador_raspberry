@@ -227,6 +227,7 @@ def response(address, cmd, p1, p2):
 
 def handle_client(address, client_socket):
     global number_pack
+    buffer=b''
     try:
         while True:
             request = client_socket.recv(1024)
@@ -236,21 +237,28 @@ def handle_client(address, client_socket):
                 log("Component connection closed.", address)
                 break
             
-            print("\n**recibe:"+str(request))
-            unpacked_values = struct.unpack('IIII', request)
-            cmd, p1, p2, _ = unpacked_values
+            buffer+= request
+            print("\n**recibe completo:"+str(request))
 
-            number_pack=number_pack+1
-            dummy=str(number_pack+1)
-            dummy = dummy.encode('utf-8')
+            while len(buffer) >= MSGLEN:  # Suponiendo que cada trama es de 16 bytes
+                print("\n**recibe analiza:"+str( buffer[:MSGLEN]))
+                unpacked_values = struct.unpack('IIII', buffer[:MSGLEN] )
+                cmd, p1, p2, _ = unpacked_values
 
-            print("antees de pack")
-            pack_data=struct.pack('12sI', dummy, response(address,cmd, p1, p2))
-            print("despues de pack")
-            print("antes desend")
-            print("envia;"+str(pack_data))
-            client_socket.send(pack_data)
-            print("despues de send")
+                number_pack=number_pack+1
+                dummy=str(number_pack+1)
+                dummy = dummy.encode('utf-8')
+
+                print("antees de pack")
+                pack_data=struct.pack('12sI', dummy, response(address,cmd, p1, p2))
+                print("despues de pack")
+                print("antes desend")
+                print("envia;"+str(pack_data))
+                client_socket.send(pack_data)
+                print("despues de send")
+
+                # Eliminar la trama procesada del buffer
+                buffer = buffer[MSGLEN:]
     except socket.error as e1:
         if e1.errno == errno.WSAECONNRESET:
             log("Client connection closed.", address)
