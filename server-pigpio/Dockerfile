@@ -26,9 +26,9 @@ RUN echo 'root:1234' | chpasswd
 # Abre el puerto 22 para SSH
 EXPOSE 22 5022 5000
 
-RUN mkdir /home/raspberry-pigpio
-WORKDIR /home/raspberry-pigpio/server-pigpio
+RUN mkdir /home/server-pigpio
+WORKDIR /home/server-pigpio
 
-COPY . /home/raspberry-pigpio
+COPY . /home/server-pigpio
 
 CMD ["python3","GPIOServer.py"]
