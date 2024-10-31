@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 						  openssh-client \ 
 && rm -rf /var/lib/apt/lists/* #se borra la cache de apt para liberar espacio
 
-RUN echo pip3 install pigpio
+RUN pip3 install pigpio
 
 #se modifica el archivo sshd_config, para poder acceder por sshs al Docker
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config &&\
