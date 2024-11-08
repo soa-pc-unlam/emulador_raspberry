@@ -18,7 +18,6 @@ gpio_pwm_duty_cycle = {}
 result_ok = 1
 result_nook = -1
 
-request_sockets = {}
 event_sockets = {}
 def log(message, address):
     print(f"({address}) -  {message}")
@@ -122,7 +121,7 @@ def getState(pin):
         value = gpio_state[pin]
     return value
 
-def response(address, cmd, p1, p2):
+def response(client_socket, address, cmd, p1, p2):
     req = 'unknown command'
     res = result_nook
     # First Connection -> Bit Read? // lastLevel
@@ -130,6 +129,7 @@ def response(address, cmd, p1, p2):
         req = '_PI_CMD_BR1'
         res = 10
         res = 0
+        event_sockets[address] = client_socket
     # Version
     elif cmd == pigpio._PI_CMD_HWVER:
         req = '_PI_CMD_HWVER'
@@ -233,7 +233,7 @@ def handle_client(address, client_socket):
 
             dummy = b'Hello, World'
 
-            client_socket.send(struct.pack('12sI', dummy, response(address,cmd, p1, p2)))
+            client_socket.send(struct.pack('12sI', dummy, response(client_socket,address,cmd, p1, p2)))
 
     except socket.error as e1:
         if e1.errno == errno.WSAECONNRESET:
@@ -242,12 +242,9 @@ def handle_client(address, client_socket):
 
 
     except Exception as e2:
-
         log(f"General Exception: {e2}", address)
 
     finally:
-        if address in request_sockets:
-            del request_sockets[address]
         if address in event_sockets:
             del event_sockets[address]
         client_socket.close()
@@ -259,17 +256,21 @@ serversocket.bind(('0.0.0.0', 5000))
 serversocket.listen(5)
 
 while True:
+    time.sleep(0.01)
     log(f"Raspberry Pi Server Listening...", "")
 
-    requestSocket, address = serversocket.accept()
-    request_sockets[address[1]] = requestSocket
-    request_handler1 = threading.Thread(target=handle_client, args=(address[1], requestSocket,))
-    log(f"Request Socket: {address[1]}. ", address[1])
+    # addressInfo[0] -> IP Address
+    # addressInfo[1] -> Port Address
 
-    eventSocket, address = serversocket.accept()
-    event_sockets[address[1]] = eventSocket
-    request_handler2 = threading.Thread(target=handle_client, args=(address[1], eventSocket,))
-    log(f"Event Socket: {address[1]}. ",address[1])
+    client_socket1, addressInfo1 = serversocket.accept()
+    handlerThread1 = threading.Thread(target=handle_client, args=(addressInfo1[1], client_socket1,))
+    log(f"New Socket: {addressInfo1[1]}. ", addressInfo1[1])
+    time.sleep(0.01)
 
-    request_handler1.start()
-    request_handler2.start()
+    client_socket2, addressInfo2 = serversocket.accept()
+    handlerThread2 = threading.Thread(target=handle_client, args=(addressInfo2[1], client_socket2,))
+    log(f"New Socket: {addressInfo2[1]}. ", addressInfo2[1])
+    time.sleep(0.01)
+
+    handlerThread1.start()
+    handlerThread2.start()
