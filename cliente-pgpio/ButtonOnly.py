@@ -1,6 +1,6 @@
 from time import sleep
 from lib.gpiozero import Button
-from lib.CreateCircuit import create_circuit
+from lib.CircuitPlatform import  Circuit_Platform
 
 def main():
 
@@ -27,4 +27,8 @@ def main():
     while True:
         sleep(0.1)
 
-create_circuit("ButtonOnly.json", main)
+if __name__ == "__main__":
+    #se verifica si se esta ejcutando en simulador o la Raspberry fisica.
+    #Si se ejecuta en el simulador, se crea el circuito graifco qu esta en el archivo
+    #Json
+    Circuit_Platform.check_plataform_simulator("ButtonOnly.json", main)
