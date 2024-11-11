@@ -3,10 +3,8 @@ import errno
 import struct
 import threading
 import time
-
 import pigpio
 from datetime import datetime
-
 
 gpio_state = {}
 gpio_mode = {}
@@ -16,24 +14,31 @@ gpio_pwm_range = {}
 gpio_pwm = {}
 gpio_pwm_duty_cycle = {}
 
-#lista para almacenar los hilos
-threads = []
-
 result_ok = 1
 result_nook = -1
 
-request_sockets = {}
 event_sockets = {}
-event_socket_closed = False
+
+finished_server=False
 
 #locks para evitar condiciones de carrera
 data_commands_locks = threading.Lock()              # Para todo los comandos 
 request_sockets_lock = threading.Lock()             # Para request_sockets
 events_sockets_lock = threading.Lock()              # Para events_sockets
-event_socket_closed_lock = threading.Lock()          # Para saber el estado del socket de eventos
+finished_server_lock = threading.Lock()             # Para saber el estado del socket de eventos
 
-class exitTimerLoop(Exception):
-    pass
+def getFinshed_server():
+    global finished_server
+
+    with finished_server_lock:
+        finish=finished_server
+    return finish
+
+def setFinished_server(value):
+    global finished_server
+
+    with finished_server_lock:
+        finished_server=value
 
 def getEventSocketsValues():
 
@@ -41,57 +46,45 @@ def getEventSocketsValues():
         values=event_sockets.values()
     return values
 
-def log(message, address=""):
+def setEventSocketsValues(socket,address):
+    with events_sockets_lock:
+        event_sockets[address]=socket
+
+
+def log(message, address):
     print(f"({address}) -  {message}")
 
-def setStateEventSocket(new_value):
-    global event_socket_closed
-     
-    with event_socket_closed_lock:
-        event_socket_closed=new_value
-def getStateEventSocket():
-    global event_socket_closed
-
-    with event_socket_closed_lock:
-        value=event_socket_closed
-    return value
-        
 def bucle_temporizador():
-    try:
-        while True:
-            time.sleep(0.01)
-            
-            #aplico un lock para evitar problemas de concurrencia en los comandos
-            with data_commands_locks:
-                gpio_Notify_items= getGpioNotifyItems()
+    finish=False
 
-            for pin, notify in gpio_Notify_items:
-                if notify:
-                    
-                    seq = 1
-                    flags = 0
-                    tick = int(time.perf_counter()*1000)
-                    level = 0
+    while not finish:
+        time.sleep(0.01)
 
-                    #aplico un lock para evitar problemas de concurrencia en los comandos
-                    with data_commands_locks:
-                        setNotify(pin, False)
-                        gpio_state_items=getGpioStateItems()
+        #aplico un lock para evitar problemas de concurrencia en los comandos
+        with data_commands_locks:
+            gpio_Notify_items= getGpioNotifyItems()
 
-                    for pin_state,state in gpio_state_items:
-                        if state:
-                            level += 2 ** pin_state
+        for pin, notify in gpio_Notify_items:
+            if notify:
+                setNotify(pin, False)
+                seq = 1
+                flags = 0
+                tick = int(time.perf_counter()*1000)
+                level = 0
 
-                    for socket in getEventSocketsValues():
-                        socket.send(struct.pack('HHII', seq, flags, tick, level))
+                #aplico un lock para evitar problemas de concurrencia en los comandos
+                with data_commands_locks:
+                    setNotify(pin, False)
+                    gpio_state_items=getGpioStateItems()
 
-                #si se cerro el socket del event finalizo el thread del bucle              
-                if(getStateEventSocket()==True):
-                    raise exitTimerLoop
-    except exitTimerLoop:
-        pass
-    except Exception as e1:
-        log(f"General Exception Handler_client: {e1}")
+                for pin_state,state in gpio_state_items:
+                    if state:
+                        level += 2 ** pin_state
+
+                for socket in getEventSocketsValues():
+                    socket.send(struct.pack('HHII', seq, flags, tick, level))
+
+        finish=getFinshed_server()
 
 def setPWMDutyCycle(pin, value):
     gpio_pwm_duty_cycle[pin] = value
@@ -173,15 +166,15 @@ def getState(pin):
 def getGpioStateItems():
     return list(gpio_state.items())
 
-def determine_response(address, cmd, p1, p2):
+def determine_response(client_socket, address, cmd, p1, p2):
     req = 'unknown command'
     res = result_nook
-
     # First Connection -> Bit Read? // lastLevel
     if cmd == pigpio._PI_CMD_BR1:
         req = '_PI_CMD_BR1'
         res = 10
         res = 0
+        setEventSocketsValues(client_socket,address)
     # Version
     elif cmd == pigpio._PI_CMD_HWVER:
         req = '_PI_CMD_HWVER'
@@ -226,7 +219,8 @@ def determine_response(address, cmd, p1, p2):
         res = result_ok
     # Notify Close
     elif cmd == pigpio._PI_CMD_NC:
-        req = '_PI_CMD_NC'    
+        req = '_PI_CMD_NC'
+        
         if p2 in gpio_Notify:
             del gpio_Notify[p2]
         res = result_ok
@@ -268,17 +262,17 @@ def determine_response(address, cmd, p1, p2):
     log(f"response: {res}", address)
     return res
 
-
-def response(address, cmd, p1, p2):
+def response(client_socket,address, cmd, p1, p2):
 
     with data_commands_locks:
-        res=determine_response(address, cmd, p1, p2)
+        res=determine_response(client_socket,address, cmd, p1, p2)
     return res
 
 
-def handle_client(address, client_socket,socket_type):
+def handle_client(address, client_socket):
+    finish=False
     try:
-        while True:
+        while not finish:
             request = client_socket.recv(1024)
 
             if not request:
@@ -291,81 +285,75 @@ def handle_client(address, client_socket,socket_type):
 
             dummy = b'Hello, World'
 
-            client_socket.send(struct.pack('12sI', dummy, response(address,cmd, p1, p2)))
+            client_socket.send(struct.pack('12sI', dummy, response(client_socket,address,cmd, p1, p2)))
+            
+        finish=getFinshed_server()
 
     except socket.error as e1:
         if e1.errno == errno.WSAECONNRESET:
             log("Client connection closed.", address)
 
     except Exception as e2:
-
-        log(f"General Exception Handler_client: {e2}", address)
+        log(f"General Excep tion: {e2}", address)
 
     finally:
-        if socket_type=="request":
-            with request_sockets_lock:
-                del request_sockets[address]
-                log("Socket request closed.",address)
-                client_socket.close()
-        elif socket_type=="event":
-            with events_sockets_lock:
+        with events_sockets_lock:
+            if address in event_sockets:
                 del event_sockets[address]
-                setStateEventSocket(True)
-                log("Socket event closed.",address)
-                client_socket.close()
+        client_socket.close()
 
-def create_thread_request():
-    #Aca se aceptan las conexiones de las request
-    requestSocket, address = serversocket.accept()
-
-    with request_sockets_lock:
-        request_sockets[address[1]] = requestSocket
-
-    request_handler_thread= threading.Thread(target=handle_client, args=(address[1], requestSocket,"request"))
-    threads.append(request_handler_thread)
-    request_handler_thread.start()
-
-    log(f"Request Socket: {address[1]}. ", address[1])
-
-
-def create_thread_events():
-#Aca se aceptan las conexiones de los events
-    eventSocket, address = serversocket.accept()
-
-    with events_sockets_lock:
-        event_sockets[address[1]] = eventSocket
+def main():
+    handlerThread1 = None
+    handlerThread2 = None
     
-    event_handler_thread = threading.Thread(target=handle_client, args=(address[1], eventSocket,"event"))
-    threads.append(event_handler_thread)
-    event_handler_thread.start()
+    try:
+        serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        serversocket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+        serversocket.bind(('0.0.0.0', 5000))
+        serversocket.listen(5)
 
-    log(f"Event Socket: {address[1]}. ",address[1])
+        # Crear un hilo para el bucle del temporizador
+        temporizador_thread = threading.Thread(target=bucle_temporizador)
+        temporizador_thread.start()
 
-def create_thread_timer_loop():
-    # Crear un hilo para el bucle del temporizador
-    setStateEventSocket(False)
+        while True:
+            time.sleep(0.01)
+            print("\nRaspberry Pi Server Listening...")
 
-    timer_loop_thread = threading.Thread(target=bucle_temporizador)
-    threads.append(timer_loop_thread)
-    timer_loop_thread.start()
+            # addressInfo[0] -> IP Address
+            # addressInfo[1] -> Port Address
 
-def join_all_thread():
-    # Hacer join a cada hilo en la lista
-    for thread in threads:
-        thread.join()
+            client_socket1, addressInfo1 = serversocket.accept()
+            handlerThread1 = threading.Thread(target=handle_client, args=(addressInfo1[1], client_socket1,))
+            log(f"New Socket: {addressInfo1[1]}. ", addressInfo1[1])
+            time.sleep(0.01)
 
-    log("All thread finished\n")
+            client_socket2, addressInfo2 = serversocket.accept()
+            handlerThread2 = threading.Thread(target=handle_client, args=(addressInfo2[1], client_socket2,))
+            log(f"New Socket: {addressInfo2[1]}. ", addressInfo2[1])
+            time.sleep(0.01)
 
-serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-serversocket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-serversocket.bind(('0.0.0.0', 5000))
-serversocket.listen(5)
+            handlerThread1.start()
+            handlerThread2.start()
 
-while True:
-    log(f"Raspberry Pi Server Listening...\n")
+            handlerThread1.join()
+            handlerThread2.join()
+    except KeyboardInterrupt:
+        print("\nProgram stopped by user with Ctrl+C")
+    finally:
+        setFinished_server(True)
 
-    create_thread_request()
-    create_thread_events()
-    create_thread_timer_loop()
-    
-    join_all_thread()
+        # Verificar si los threads existen y están vivos antes de unirlos
+        if handlerThread1 and handlerThread1.is_alive():
+            handlerThread1.join()
+        if handlerThread2 and handlerThread2.is_alive():
+            handlerThread2.join()
+        
+        temporizador_thread.join()
+
+        serversocket.close()
+        print("Server terminated successfully...")
+
+
+if __name__ == "__main__":
+    main()
