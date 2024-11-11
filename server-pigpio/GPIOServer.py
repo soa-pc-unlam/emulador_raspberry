@@ -14,11 +14,13 @@ gpio_pwm_range = {}
 gpio_pwm = {}
 gpio_pwm_duty_cycle = {}
 
+#lista para almacenar los hilos
+threads = []
+
 result_ok = 1
 result_nook = -1
 
 event_sockets = {}
-
 finished_server=False
 
 #locks para evitar condiciones de carrera
@@ -302,6 +304,46 @@ def handle_client(address, client_socket):
                 del event_sockets[address]
         client_socket.close()
 
+def create_thread_timer_loop():
+    # Crear un hilo para el bucle del temporizador
+    timer_loop_thread = threading.Thread(target=bucle_temporizador)
+    
+    timer_loop_thread.start()
+
+    return timer_loop_thread
+    
+def create_thread_request(serversocket):
+    
+    client_socket1, addressInfo1 = serversocket.accept()
+    
+    request_thread = threading.Thread(target=handle_client, args=(addressInfo1[1], client_socket1,))
+    time.sleep(0.01)
+    threads.append(request_thread)
+
+    log(f"Request New Socket: {addressInfo1[1]}. ", addressInfo1[1])
+    
+    request_thread.start()
+
+def create_thread_events(serversocket):
+    client_socket2, addressInfo2 = serversocket.accept()
+    events_thread = threading.Thread(target=handle_client, args=(addressInfo2[1], client_socket2,))
+    time.sleep(0.01)
+    threads.append(events_thread)
+
+    log(f"Events New Socket: {addressInfo2[1]}. ", addressInfo2[1])
+
+    events_thread.start()
+
+
+def join_sockets_thread():
+    # Hacer join a cada hilo en la lista
+    for thread in threads:
+        if thread and thread.is_alive():
+            thread.join()
+
+    print("\n Sockets Threads terminated..")
+
+
 def main():
     handlerThread1 = None
     handlerThread2 = None
@@ -312,9 +354,7 @@ def main():
         serversocket.bind(('0.0.0.0', 5000))
         serversocket.listen(5)
 
-        # Crear un hilo para el bucle del temporizador
-        temporizador_thread = threading.Thread(target=bucle_temporizador)
-        temporizador_thread.start()
+        timer_loop=create_thread_timer_loop()
 
         while True:
             time.sleep(0.01)
@@ -323,33 +363,19 @@ def main():
             # addressInfo[0] -> IP Address
             # addressInfo[1] -> Port Address
 
-            client_socket1, addressInfo1 = serversocket.accept()
-            handlerThread1 = threading.Thread(target=handle_client, args=(addressInfo1[1], client_socket1,))
-            log(f"New Socket: {addressInfo1[1]}. ", addressInfo1[1])
-            time.sleep(0.01)
-
-            client_socket2, addressInfo2 = serversocket.accept()
-            handlerThread2 = threading.Thread(target=handle_client, args=(addressInfo2[1], client_socket2,))
-            log(f"New Socket: {addressInfo2[1]}. ", addressInfo2[1])
-            time.sleep(0.01)
-
-            handlerThread1.start()
-            handlerThread2.start()
-
-            handlerThread1.join()
-            handlerThread2.join()
+            create_thread_request(serversocket)
+            create_thread_events(serversocket)
+            
+            join_sockets_thread()
     except KeyboardInterrupt:
         print("\nProgram stopped by user with Ctrl+C")
     finally:
         setFinished_server(True)
 
         # Verificar si los threads existen y están vivos antes de unirlos
-        if handlerThread1 and handlerThread1.is_alive():
-            handlerThread1.join()
-        if handlerThread2 and handlerThread2.is_alive():
-            handlerThread2.join()
-        
-        temporizador_thread.join()
+        join_sockets_thread()
+
+        timer_loop.join()
 
         serversocket.close()
         print("Server terminated successfully...")
