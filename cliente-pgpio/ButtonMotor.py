@@ -1,6 +1,6 @@
 from time import sleep
-from lib.gpiozero import Motor, Button
-from lib.CircuitPlatform import Circuit_Platform
+from simu_docker_rpi.gpiozero import Motor, Button
+from simu_docker_rpi.CircuitPlatform import Circuit_Platform
 def main():
 
     speed= 0

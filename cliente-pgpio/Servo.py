@@ -1,6 +1,6 @@
-from lib.gpiozero import Servo,Button
+from simu_docker_rpi.gpiozero import Servo,Button
 
-from lib.CircuitPlatform import Circuit_Platform
+from simu_docker_rpi.CircuitPlatform import Circuit_Platform
 from time import sleep
 
 

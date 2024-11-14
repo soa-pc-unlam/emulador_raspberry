@@ -1,5 +1,7 @@
-from lib.gpiozero import Button
-from  lib.CircuitPlatform import Circuit_Platform
+#from lib.gpiozero import Button
+#from  lib.CircuitPlatform import Circuit_Platform
+from simu_docker_rpi.gpiozero import Button
+from simu_docker_rpi.CircuitPlatform import Circuit_Platform
 from time import sleep
 
 valor = 0
