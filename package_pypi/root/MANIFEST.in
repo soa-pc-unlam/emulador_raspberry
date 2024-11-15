@@ -1,6 +1,9 @@
 # Incluir todos los archivos en simu_docker_rpi y sus subdirectorios
 recursive-include simu_docker_rpi *
 
+# Incluir todos los archivos en el directorio test, sin hacerlo un subpaquete
+recursive-include test *
+
 # Excluir todos los directorios __pycache__ en cualquier lugar del proyecto
 global-exclude __pycache__/*
 global-exclude */__pycache__/*
