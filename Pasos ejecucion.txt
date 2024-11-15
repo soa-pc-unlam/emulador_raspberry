@@ -1,0 +1,13 @@
+Pasos para eejcutar
+
+1) Descargar y ejecutar el servidor de Pigpio
+docker run -it --network bridge -p 22:22 -p 5000:5000 -p 5022:5022 soaunlam/emulador-raspberry-pigpio
+
+2)instalar el paquete de python para usar en el cliente
+pip install -i https://test.pypi.org/simple --extra-index-url https://pypi.org/simple simu-docker-rpi
+
+3) descargar y ejecutar algun ejemplo python de la siguiente URL
+
+https://github.com/soa-pc-unlam/emulador_raspberry/tree/package-pypi/example
+
+NOtA: se deben descargar los archivo.py y json que tiene el mismo nombre
