@@ -1,0 +1,15 @@
+{
+  "name": "Cliente 2",
+  "width": 700,
+  "height": 550,
+  "leds": [
+        {"x": 50, "y": 50,  "name": "LED 1", "pin": 21}
+  ],
+  "buzzers": [
+        {"x": 150, "y": 50, "name": "Buzzer", "pin": 23, "frequency": 440}
+  ],
+  "buttons": [
+        {"x": 50, "y": 130, "name": "Boton 1", "pin": 15},
+        {"x": 150, "y": 130, "name": "Boton 3", "pin": 17}
+    ]
+}
