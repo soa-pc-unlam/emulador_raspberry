@@ -45,7 +45,7 @@ def mqtt_callback(topic, message, led, buzzer):
 
 # Función main
 def main():
-    led1 = LED(21)
+    led1 = LED(18)
     buzzer = Buzzer(23)
 
     # Configuración de los botones

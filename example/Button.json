@@ -4,6 +4,6 @@
   "height": 550,
 
   "buttons": [
-        {"x": 50, "y": 130, "name": "Boton 1", "pin": 11}
+        {"x": 50, "y": 130, "name": "Boton 1", "pin": 17}
     ]
 }

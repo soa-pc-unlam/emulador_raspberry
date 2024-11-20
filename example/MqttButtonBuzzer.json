@@ -3,7 +3,7 @@
   "width": 700,
   "height": 550,
   "leds": [
-        {"x": 50, "y": 50,  "name": "LED 1", "pin": 21}
+        {"x": 50, "y": 50,  "name": "LED 1", "pin": 18}
   ],
   "buzzers": [
         {"x": 150, "y": 50, "name": "Buzzer", "pin": 23, "frequency": 440}
