@@ -2,6 +2,7 @@ import threading
 from pystray import Icon, Menu, MenuItem
 from PIL import Image, ImageDraw
 from copiar_archivo import show_window
+from install_package import install_package
 
 
 def create_image():
@@ -21,7 +22,10 @@ def run_tray():
     """Ejecuta el icono de la bandeja del sistema."""
     icon_image = create_image()
     menu = Menu(
-        MenuItem("Mostrar", lambda icon, item: show_window(icon, item)),
+        MenuItem("Script a RPI", lambda icon, item: show_window(icon, item)),
+        Menu.SEPARATOR,
+        MenuItem("Instalar Paquetes ", lambda icon, item: install_package()),
+        Menu.SEPARATOR,
         MenuItem("Salir", quit_app)
     )
     icon = Icon("Copiar a Raspberry", icon_image, menu=menu)

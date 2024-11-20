@@ -68,8 +68,3 @@ def adaptar_archivo(nombre_archivo):
     buscar_renombrar_texto(archivo_salida)
     return archivo_salida
 
-'''try:
-     adaptar_archivo("Blinkled.py")
-except FileNotFoundError as ex:
-    print("Error archivo no encntrado"+ex.filename)
-'''

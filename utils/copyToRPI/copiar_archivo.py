@@ -3,7 +3,7 @@ from tkinter import filedialog, messagebox, simpledialog
 import paramiko
 import os
 
-from utils.copyToRPI.adapt_file import adaptar_archivo
+from adapt_file import adaptar_archivo
 
 # Variables globales
 archivo_a_copiar = None
