@@ -79,6 +79,10 @@ def show_window(icon, item):
     archivo_label.grid(row=1, column=0, columnspan=2, sticky="w")
 
     # Botón para seleccionar archivo
+    seleccionar_btn = tk.Button(frame, text="Ejecutar Servidor Pigpio...", command=lambda: seleccionar_archivo(archivo_label))
+    seleccionar_btn.grid(row=2, column=0, columnspan=2, pady=5)
+
+    # Botón para seleccionar archivo
     seleccionar_btn = tk.Button(frame, text="Seleccionar archivo", command=lambda: seleccionar_archivo(archivo_label))
     seleccionar_btn.grid(row=2, column=0, columnspan=2, pady=5)
 

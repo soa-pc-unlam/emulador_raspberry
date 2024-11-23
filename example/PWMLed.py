@@ -5,7 +5,7 @@ from simu_docker_rpi.CircuitPlatform import Circuit_Platform
 
 
 def main():
-    led = PWMLED(18)
+    led = PWMLED(12)
     switchLighting = Button(11)
     btnOffLed = Button(17, pull_up=False)
 

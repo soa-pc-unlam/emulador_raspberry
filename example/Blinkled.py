@@ -1,8 +1,9 @@
 from time import sleep
 
-from simu_docker_rpi.CircuitPlatform import Circuit_Platform
-from simu_docker_rpi.gpiozero import LED
+#from simu_docker_rpi.CircuitPlatform import Circuit_Platform
+#from simu_docker_rpi.gpiozero import LED
 
+from gpiozero import LED
 
 import os
 def main():
@@ -22,4 +23,5 @@ if __name__ == "__main__":
     #Si se ejecuta en el simulador, se crea el circuito graifco qu esta en el archivo
     #Json
     
-    Circuit_Platform.check_plataform_simulator("Blinkled.json", main)
+    #Circuit_Platform.check_plataform_simulator("Blinkled.json", main)
+    main()
