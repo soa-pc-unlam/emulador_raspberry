@@ -4,7 +4,6 @@ import time
 from simu_docker_rpi.gpiozero import LED, Button, Buzzer, PWMLED, Servo, MotionSensor
 from simu_docker_rpi.CircuitPlatform import Circuit_Platform
 
-from MqttButtonBuzzer import TOPIC_CTRL_LED
 from mqttHandler.mqttHandler import MQTTHandler
 
 IN_MIN  = 0
@@ -20,17 +19,19 @@ STATE_WAIT_NOT_MOVED = 2
 EVT_CONTINUE                     =   1
 EVT_SWITCH_ON                    =   2
 EVT_SWITCH_OFF                   =   3
-EVT_ACTIVATE_ALARM_MANUAL       =   4
-EVT_DEACTIVATE_ALARM_MANUAL     =   5
+EVT_ACTIVATE_ALARM_MANUAL        =   4
+EVT_DEACTIVATE_ALARM_MANUAL      =   5
 EVT_OPEN_DOOR                    =   6
 EVT_CLOSE_DOOR                   =   7
 EVT_DETECT_MOVE                  =   8
 EVT_NOT_DETECT_MOVE              =   9
 
-TOPIC_SYSTEM_STATE = "/system/state"
-TOPIC_MOVE_STATE = "/move/state"
-TOPIC_CTRL_ALARM= "/alarm/ctrl"
-TOPIC_CTRL_DOOR = "/door/ctrl"
+TOPIC_SYSTEM_STATE  = "/system/state"
+TOPIC_MOVE_STATE    = "/move/state"
+TOPIC_CTRL_ALARM    = "/alarm/ctrl"
+TOPIC_STATE_ALARM   = "/alarm/state"
+TOPIC_CTRL_DOOR     = "/door/ctrl"
+TOPIC_STATE_DOOR    = "/door/state"
 
 #Pines Actuadores
 PIN_BUZZER          =  24
@@ -276,37 +277,47 @@ def main():
                     show_message_lcd(lcd, "Sistema Encendido")
                     mqtt_handler.publish(TOPIC_SYSTEM_STATE,"Sistema encendido")
                     current_state=STATE_WAIT_ORDEN
+
                 elif event_aux==EVT_CONTINUE:
                     pass
 
             elif current_state == STATE_WAIT_ORDEN:
                 if event_aux==EVT_ACTIVATE_ALARM_MANUAL:
                     buzzer.on()
-                    print("Suena Alarma")
+                    mqtt_handler.publish(TOPIC_STATE_ALARM,"ON")
                     siren_alarm(led_alarm,True)
+                    print("Suena Alarma")
                     show_message_lcd(lcd, "Suena Alarma")
+
                 elif event_aux==EVT_DEACTIVATE_ALARM_MANUAL:
                     buzzer.off()
                     siren_alarm(led_alarm, False)
+                    mqtt_handler.publish(TOPIC_STATE_ALARM, "OFF")
                     print("sistema encendido")
                     show_message_lcd(lcd, "Sistema Encendido")
+
                 elif event_aux==EVT_OPEN_DOOR:
                     move_servo(servo,90)
                     led_door.on()
+                    mqtt_handler.publish(TOPIC_STATE_DOOR, "OPEN")
                     print("Abriendo puerta")
                     show_message_lcd(lcd, "Puerta Abierta")
+
                 elif event_aux == EVT_CLOSE_DOOR:
                     move_servo(servo, 180)
                     led_door.off()
                     reset_siren(led_alarm)
+                    mqtt_handler.publish(TOPIC_STATE_DOOR,"CLOSE")
                     print("Cerrando puerta")
                     show_message_lcd(lcd, "Puerta Cerrada")
+
                 elif event_aux==EVT_DETECT_MOVE:
                     buzzer.on()
                     print("Movimiento detectado")
                     siren_alarm(led_alarm, True)
-                    mqtt_handler.publish(TOPIC_SYSTEM_STATE,"Movimiento detectado")
+                    mqtt_handler.publish(TOPIC_MOVE_STATE,"Movimiento detectado")
                     show_message_lcd(lcd, "Mov. detectado")
+
                 elif event_aux==EVT_SWITCH_OFF:
                     siren_alarm(led_alarm, False)
                     led_door.off()
@@ -316,6 +327,7 @@ def main():
                     print("Apaga Sistema")
                     show_message_lcd(lcd, "Sistema Apagado")
                     current_state=STATE_SYSTEM_OFF
+
                 elif event_aux == EVT_CONTINUE:
                     change_siren(led_alarm)
                     pass
