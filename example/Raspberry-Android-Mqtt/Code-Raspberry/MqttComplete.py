@@ -284,7 +284,7 @@ def main():
             elif current_state == STATE_WAIT_ORDEN:
                 if event_aux==EVT_ACTIVATE_ALARM_MANUAL:
                     buzzer.on()
-                    mqtt_handler.publish(TOPIC_STATE_ALARM,"ON")
+                    mqtt_handler.publish(TOPIC_STATE_ALARM,"on")
                     siren_alarm(led_alarm,True)
                     print("Suena Alarma")
                     show_message_lcd(lcd, "Suena Alarma")
@@ -292,14 +292,14 @@ def main():
                 elif event_aux==EVT_DEACTIVATE_ALARM_MANUAL:
                     buzzer.off()
                     siren_alarm(led_alarm, False)
-                    mqtt_handler.publish(TOPIC_STATE_ALARM, "OFF")
+                    mqtt_handler.publish(TOPIC_STATE_ALARM, "off")
                     print("sistema encendido")
                     show_message_lcd(lcd, "Sistema Encendido")
 
                 elif event_aux==EVT_OPEN_DOOR:
                     move_servo(servo,90)
                     led_door.on()
-                    mqtt_handler.publish(TOPIC_STATE_DOOR, "OPEN")
+                    mqtt_handler.publish(TOPIC_STATE_DOOR, "open")
                     print("Abriendo puerta")
                     show_message_lcd(lcd, "Puerta Abierta")
 
@@ -307,7 +307,7 @@ def main():
                     move_servo(servo, 180)
                     led_door.off()
                     reset_siren(led_alarm)
-                    mqtt_handler.publish(TOPIC_STATE_DOOR,"CLOSE")
+                    mqtt_handler.publish(TOPIC_STATE_DOOR,"close")
                     print("Cerrando puerta")
                     show_message_lcd(lcd, "Puerta Cerrada")
 

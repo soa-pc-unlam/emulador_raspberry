@@ -20,8 +20,13 @@ public class MqttHandler implements MqttCallback {
     public static final String USER="";
     public static final String PASS="";
 
-    public static final String TOPIC_LUZ = "/casa/luz";
-    public static final String TOPIC_TEMPERATURA      = "/casa/temperatura";
+
+    public static final String TOPIC_SYSTEM_STATE  = "/system/state";
+    public static final String TOPIC_MOVE_STATE    = "/move/state";
+    public static final String TOPIC_CTRL_ALARM    = "/alarm/ctrl";
+    public static final String TOPIC_STATE_ALARM   = "/alarm/state";
+    public static final String TOPIC_CTRL_DOOR     = "/door/ctrl";
+    public static final String TOPIC_STATE_DOOR    = "/door/state";
 
     public static final String ACTION_DATA_RECEIVE ="com.example.intentservice.intent.action.DATA_RECEIVE";
     public static final String ACTION_CONNECTION_LOST ="com.example.intentservice.intent.action.CONNECTION_LOST";
@@ -95,14 +100,11 @@ public class MqttHandler implements MqttCallback {
     @Override
     public void messageArrived(String topic, MqttMessage message) throws Exception {
 
-        String msgJson=message.toString();
-
-        JSONObject json = new JSONObject(message.toString());
-        Float valorPote = Float.parseFloat(json.getString("value"));
 
         //Se envian los valores sensados por el potenciometro, al bradcast reciever de la activity principal
         Intent i = new Intent(ACTION_DATA_RECEIVE);
-        i.putExtra("msgJson", msgJson);
+        i.putExtra("topic",topic);
+        i.putExtra("msg", String.valueOf(message));
 
         mContext.sendBroadcast(i);
 

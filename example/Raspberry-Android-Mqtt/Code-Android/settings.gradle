@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "mqtt"
+rootProject.name = "Code-Android"
 include ':app'
