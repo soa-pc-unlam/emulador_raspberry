@@ -32,7 +32,8 @@ docker exec -it mosquitto mosquitto_passwd -c mosquitto/passwd_file/password.txt
 ```sh
 mosquitto_sub -h <broker> -p 1883 -t /test/message -v -u "admin" -P "soa2024"
 mosquitto_pub -h <broker> -p 1883 -t /test/message -m "hello world" -u "admin" -P "soa2024"
-```
+
 <broker>: 
     - localhost si ejecuta dentro de wsl
     - IP de PC local si ejecuta dentro de la LAN
+```
