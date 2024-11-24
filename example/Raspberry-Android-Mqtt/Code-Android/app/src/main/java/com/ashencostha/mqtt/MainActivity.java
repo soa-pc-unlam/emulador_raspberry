@@ -9,16 +9,19 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.io.IOException;
+
+import pl.droidsonroids.gif.GifDrawable;
+
 
 public class MainActivity extends Activity  {
 
@@ -29,6 +32,10 @@ public class MainActivity extends Activity  {
 
     private Switch swDoor;
     private Switch swAlarm;
+
+    private ImageView imgDoor;
+    private ImageView imgSiren;
+    private GifDrawable gifDrawable;
     public IntentFilter filterReceive;
     public IntentFilter filterConncetionLost;
     private ReceptorOperacion receiver =new ReceptorOperacion();
@@ -40,22 +47,36 @@ public class MainActivity extends Activity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        try {
+            txtDescription=(TextView)findViewById(R.id.txtDescription);
+            swAlarm =(Switch) findViewById(R.id.swAlarm);
+            swDoor  =(Switch) findViewById(R.id.swDoor);
+            imgDoor =(ImageView) findViewById(R.id.imgDoor);
+            imgSiren=(ImageView)findViewById(R.id.imgSiren);
 
-        txtDescription=(TextView)findViewById(R.id.txtDescription);
-        swAlarm =(Switch) findViewById(R.id.swAlarm);
-        swDoor  =(Switch) findViewById(R.id.swDoor);
+            swDoor.setOnCheckedChangeListener(switchListener);
+            swAlarm.setOnCheckedChangeListener(switchListener);
+            imgDoor.setImageResource(R.drawable.close_door);
 
-        swDoor.setOnCheckedChangeListener(switchListener);
-        swAlarm.setOnCheckedChangeListener(switchListener);
+            mqttHandler = new MqttHandler(getApplicationContext());
 
-        mqttHandler = new MqttHandler(getApplicationContext());
 
-        connect();
 
-        configurarBroadcastReciever();
+            gifDrawable = new GifDrawable(getResources(), R.drawable.siren_alarm);
+
+            imgSiren.setImageDrawable(gifDrawable);
+            imgSiren.setVisibility(View.INVISIBLE);
+
+            connect();
+
+            configurarBroadcastReciever();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void connect()
+
     {
 
         try {
@@ -116,10 +137,12 @@ public class MainActivity extends Activity  {
             switch (buttonView.getId()) {
                 case R.id.swDoor:
                     if (isChecked) {
-                        Toast.makeText(MainActivity.this, "Puerta activada", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Puerta abierta", Toast.LENGTH_SHORT).show();
+                        imgDoor.setImageResource(R.drawable.open_door);
                         publishMessage(MqttHandler.TOPIC_CTRL_DOOR,"open");
                     } else {
-                        Toast.makeText(MainActivity.this, "Puerta desactivada", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Puerta cerrada", Toast.LENGTH_SHORT).show();
+                        imgDoor.setImageResource(R.drawable.close_door);
                         publishMessage(MqttHandler.TOPIC_CTRL_DOOR,"close");
                     }
                     break;
@@ -130,6 +153,9 @@ public class MainActivity extends Activity  {
                         publishMessage(MqttHandler.TOPIC_CTRL_ALARM,"on");
                     } else {
                         Toast.makeText(MainActivity.this, "Alarma desactivada", Toast.LENGTH_SHORT).show();
+                        txtDescription.setText("");
+                        imgSiren.setVisibility(View.INVISIBLE);
+                        gifDrawable.stop();
                         publishMessage(MqttHandler.TOPIC_CTRL_ALARM,"off");
                     }
                     break;
@@ -160,17 +186,40 @@ public class MainActivity extends Activity  {
                 switch (topic) {
                     case MqttHandler.TOPIC_MOVE_STATE:
                         txtDescription.setText("Movimiento detectado");
+                        imgSiren.setVisibility(View.VISIBLE);
+                        gifDrawable.start();
+
                         break;
 
                     case MqttHandler.TOPIC_STATE_ALARM:
                         swAlarm.setOnCheckedChangeListener(null); // Deshabilita temporalmente el listener
-                        swAlarm.setChecked("on".equals(msg)); // Cambia el estado
+                        if("on".equals(msg))
+                        {
+                            swAlarm.setChecked(true);
+                        }
+                        else
+                        {
+                            swAlarm.setChecked(false);
+                            txtDescription.setText("");
+                            imgSiren.setVisibility(View.INVISIBLE);
+                            gifDrawable.stop();
+                        }
                         swAlarm.setOnCheckedChangeListener(switchListener); // Vuelve a habilitar el listener
                         break;
 
                     case MqttHandler.TOPIC_STATE_DOOR:
                         swDoor.setOnCheckedChangeListener(null); // Deshabilita temporalmente el listener
-                        swDoor.setChecked("open".equals(msg)); // Cambia el estado
+
+                        if ("open".equals(msg))
+                        {
+                            swDoor.setChecked(true); // Cambia el estado
+                            imgDoor.setImageResource(R.drawable.open_door);
+                        }else
+                        {
+                            swDoor.setChecked(false); // Cambia el estado
+                            imgDoor.setImageResource(R.drawable.close_door);
+                        }
+
                         swDoor.setOnCheckedChangeListener(switchListener); // Vuelve a habilitar el listener
                         break;
 

@@ -297,14 +297,14 @@ def main():
                     show_message_lcd(lcd, "Sistema Encendido")
 
                 elif event_aux==EVT_OPEN_DOOR:
-                    move_servo(servo,90)
+                    move_servo(servo,180)
                     led_door.on()
                     mqtt_handler.publish(TOPIC_STATE_DOOR, "open")
                     print("Abriendo puerta")
                     show_message_lcd(lcd, "Puerta Abierta")
 
                 elif event_aux == EVT_CLOSE_DOOR:
-                    move_servo(servo, 180)
+                    move_servo(servo, 90)
                     led_door.off()
                     reset_siren(led_alarm)
                     mqtt_handler.publish(TOPIC_STATE_DOOR,"close")
