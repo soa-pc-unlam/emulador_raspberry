@@ -3,6 +3,7 @@ package com.ashencostha.mqtt;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
@@ -15,23 +16,10 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.json.JSONObject;
 
 public class MqttHandler implements MqttCallback {
-    public static final String BROKER_URL = "tcp://broker.emqx.io:1883";
-    public static final String CLIENT_ID = "mqttx_f9bfd3ww";
-    public static final String USER="";
-    public static final String PASS="";
-
-
-    public static final String TOPIC_SYSTEM_STATE  = "/system/state";
-    public static final String TOPIC_MOVE_STATE    = "/move/state";
-    public static final String TOPIC_CTRL_ALARM    = "/alarm/ctrl";
-    public static final String TOPIC_STATE_ALARM   = "/alarm/state";
-    public static final String TOPIC_CTRL_DOOR     = "/door/ctrl";
-    public static final String TOPIC_STATE_DOOR    = "/door/state";
-
     public static final String ACTION_DATA_RECEIVE ="com.example.intentservice.intent.action.DATA_RECEIVE";
     public static final String ACTION_CONNECTION_LOST ="com.example.intentservice.intent.action.CONNECTION_LOST";
     private MqttClient client;
-    private Context mContext;
+    private final Context mContext;
 
     public MqttHandler(Context mContext){
 
@@ -57,9 +45,14 @@ public class MqttHandler implements MqttCallback {
              client.connect(options);
 
             client.setCallback(this);
-            //client.subscribe("#");
-        } catch (MqttException e) {
+
+            Toast.makeText(mContext,"Conexion establecida",Toast.LENGTH_LONG).show();
+
+        }
+        catch (MqttException e)
+        {
             Log.d("Aplicacion",e.getMessage()+ "  "+e.getCause());
+            Toast.makeText(mContext,"No se pudo conectar al broker",Toast.LENGTH_LONG).show();
         }
     }
 

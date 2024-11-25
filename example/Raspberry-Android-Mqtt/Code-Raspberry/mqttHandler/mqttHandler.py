@@ -4,13 +4,13 @@ from paho.mqtt import client as mqtt
 
 
 class MQTTHandler:
-    def __init__(self, broker, port=1883):
+    def __init__(self, broker, port=1883, username='',password=''):
         self.broker = broker
         self.port = port
         self.client_id = f'python-mqtt-{random.randint(0, 1000)}'
         self.client = mqtt.Client()
-        self.username = ''
-        self.password = ''
+        self.username = username
+        self.password = password
 
         self.subscribers = {}
 
@@ -32,6 +32,8 @@ class MQTTHandler:
                 callback(topic, message)
 
     def connect(self):
+        if self.username and self.password:
+            self.client.username_pw_set(self.username, self.password)
         self.client.connect(self.broker, self.port)
         self.client.loop_start()
 
