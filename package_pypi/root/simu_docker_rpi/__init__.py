@@ -1,3 +1,0 @@
-from .CircuitPlatform import Circuit_Platform
-
-check_plataform_simulator = Circuit_Platform.check_plataform_simulator

@@ -1,5 +1,0 @@
-colorzero
-paho-mqtt==1.6.1
-pigpio
-pillow
-setuptools

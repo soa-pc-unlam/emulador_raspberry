@@ -1,8 +1,0 @@
-cffi
-colorzero
-paho-mqtt<2.0.0
-pigpio
-pillow
-pycparser
-setuptools
-sounddevice
