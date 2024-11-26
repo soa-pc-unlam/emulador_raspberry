@@ -12,11 +12,15 @@ RequestExecutionLevel admin
 
 # Path de archivos de instalación
 !define INSTALL_DIR_ORIGIN "C:\instalador"
+# Definir las URL de descarga
 !define DOCKER_INSTALLER_URL "https://desktop.docker.com/win/stable/Docker%20Desktop%20Installer.exe"
+!define PYTHON_INSTALLER_URL "https://www.python.org/ftp/python/3.11.4/python-3.11.4.exe"
 
 # Sección principal de instalación
 Section "Instalar"
 
+	# Verificar si Python y pip están instalados
+	Call VerificarPython
     # Verificar si Docker está instalado
     Call VerificarDocker
 
@@ -99,7 +103,9 @@ Function DescargarDocker
 
         DescargarExito:
             MessageBox MB_OK "Instalando Docker.."
-            ExecWait '"$SYSDIR\cmd.exe" /c "$TEMP\DockerInstaller.exe" && pause'
+#            ExecWait '"$SYSDIR\cmd.exe" /c echo "Instalando Docker, por favor espere..." && "$TEMP\DockerInstaller.exe" && pause'
+			ExecWait '"$SYSDIR\cmd.exe" /c echo "Instalando Docker, por favor espere..." && "$TEMP\DockerInstaller.exe" && echo "Instalación completada." && pause'
+
             MessageBox MB_OK "Docker se instalo correctamente."
             Return
 
@@ -113,6 +119,109 @@ Function DescargarDocker
             ContinuarSinDocker2:
                 Return
 FunctionEnd
+
+
+# Función para verificar si Python está instalado
+Function VerificarPython
+    nsExec::ExecToStack 'python --version'
+    Pop $0  ; Estado del comando
+    Pop $1  ; Salida del comando
+
+    StrCmp $0 "0" PythonInstalado NoPython
+	
+	NoPython:
+    #PythonInstalado:
+        MessageBox MB_OK "Python ya está instalado en este sistema."
+        Call VerificarPip
+        Return
+	
+	PythonInstalado:
+    #NoPython:
+        MessageBox MB_YESNO "Python no está instalado. ¿Desea instalarlo automáticamente?" IDYES DescargarPython IDNO Cancelar
+
+        Cancelar:
+            MessageBox MB_OK "La instalación ha sido cancelada."
+            Quit
+
+        DescargarPython:
+            Call DescargarPython
+			Call DescargarPip
+            Return
+FunctionEnd
+
+# Función para verificar si pip está instalado
+Function VerificarPip
+    nsExec::ExecToStack 'pip --version'
+    Pop $0  ; Estado del comando
+    Pop $1  ; Salida del comando
+
+    StrCmp $0 "0" PipInstalado NoPip
+	
+	NoPip:
+    #PipInstalado:
+        MessageBox MB_OK "pip ya está instalado."
+        Return
+	
+	PipInstalado:
+    #NoPip:
+        MessageBox MB_YESNO "pip no está instalado. ¿Desea instalarlo automáticamente?" IDYES DescargarPip IDNO Cancelar
+
+        Cancelar:
+            MessageBox MB_OK "La instalación ha sido cancelada."
+            Quit
+
+        DescargarPip:
+            Call DescargarPip
+            Return
+FunctionEnd
+
+# Función para descargar e instalar Python
+Function DescargarPython
+    Call ValidarURL
+    StrCmp $0 "true" Descargar ContinuarSinPython1
+
+    ContinuarSinPython1:
+        Return
+
+    Descargar:
+		StrCpy $0 "$TEMP\PythonInstaller.exe"  ; Ruta para guardar el instalador temporalmente
+        
+		MessageBox MB_OK "Descargando Python. Esto puede tardar unos minutos..."
+        inetc::get /POPUP "" /CAPTION "Descargando Python" "${PYTHON_INSTALLER_URL}" $0
+        Pop $1 ; Obtener el estado de la descarga
+
+        IfFileExists "$0" DescargarExito DescargarFallo
+
+        DescargarExito:
+            MessageBox MB_OK "Instalando Python.."
+			ExecWait '"$SYSDIR\cmd.exe" /c echo "Instalando Python, por favor espere..." && "$TEMP\PythonInstaller.exe" && echo "Instalación completada." && pause'
+
+            #ExecWait '"$SYSDIR\cmd.exe" /c echo "Instalando Python, por favor espere..." && "$TEMP\PythonInstaller.exe /quiet InstallAllUsers=1 PrependPath=1" && pause'
+			
+            MessageBox MB_OK "Python se instaló correctamente."
+            Return
+
+        DescargarFallo:
+            MessageBox MB_YESNO "Error al descargar Python. ¿Desea continuar la instalación sin Python?" IDYES ContinuarSinPython2 IDNO Cancelar
+
+            Cancelar:
+                MessageBox MB_OK "La instalación ha sido cancelada."
+                Quit
+
+            ContinuarSinPython2:
+                Return
+FunctionEnd
+
+# Función para descargar e instalar pip
+Function DescargarPip
+    #ExecWait 'python -m ensurepip --upgrade'
+	Exec '"$SYSDIR\cmd.exe" /c echo "Instalando Pip, por favor espere..." && "python -m ensurepip --upgrade" && echo "Instalación completada." && pause'
+
+	#ExecWait '"$SYSDIR\cmd.exe" /c echo "Instalando Pip, por favor espere..." && "python -m ensurepip --upgrade" && pause'
+    MessageBox MB_OK "pip se instaló correctamente."
+    Return
+FunctionEnd
+
 
 # Sección de desinstalación
 Section "Desinstalar"
