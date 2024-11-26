@@ -1,0 +1,706 @@
+1732560230: mosquitto version 2.0.20 starting
+1732560230: Config loaded from /mosquitto/config/mosquitto.conf.
+1732560230: Warning: File /mosquitto/passwd_file/password.txt has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/passwd_file/password.txt`.
+1732560230: Opening ipv4 listen socket on port 1883.
+1732560230: mosquitto version 2.0.20 running
+1732560575: New connection from 172.18.0.1:57190 on port 1883.
+1732560575: New client connected from 172.18.0.1:57190 as mqttx_87dfd0c7 (p5, c1, k60, u'admin').
+1732560575: No will message specified.
+1732560575: Sending CONNACK to mqttx_87dfd0c7 (0, 0)
+1732560596: Received SUBSCRIBE from mqttx_87dfd0c7
+1732560596: 	/casa/luz (QoS 0)
+1732560596: mqttx_87dfd0c7 0 /casa/luz
+1732560596: Sending SUBACK to mqttx_87dfd0c7
+1732560605: Received PUBLISH from mqttx_87dfd0c7 (d0, q0, r0, m0, '/casa/luz', ... (1 bytes))
+1732560605: Sending PUBLISH to mqttx_87dfd0c7 (d0, q0, r0, m0, '/casa/luz', ... (1 bytes))
+1732560607: Received PUBLISH from mqttx_87dfd0c7 (d0, q0, r0, m0, '/casa/luz', ... (1 bytes))
+1732560607: Sending PUBLISH to mqttx_87dfd0c7 (d0, q0, r0, m0, '/casa/luz', ... (1 bytes))
+1732560668: Received PINGREQ from mqttx_87dfd0c7
+1732560668: Sending PINGRESP to mqttx_87dfd0c7
+1732560729: Received PINGREQ from mqttx_87dfd0c7
+1732560729: Sending PINGRESP to mqttx_87dfd0c7
+1732560790: Received PINGREQ from mqttx_87dfd0c7
+1732560790: Sending PINGRESP to mqttx_87dfd0c7
+1732560851: Received PINGREQ from mqttx_87dfd0c7
+1732560851: Sending PINGRESP to mqttx_87dfd0c7
+1732560911: Received PINGREQ from mqttx_87dfd0c7
+1732560911: Sending PINGRESP to mqttx_87dfd0c7
+1732560986: Received PINGREQ from mqttx_87dfd0c7
+1732560986: Sending PINGRESP to mqttx_87dfd0c7
+1732561046: Received PINGREQ from mqttx_87dfd0c7
+1732561046: Sending PINGRESP to mqttx_87dfd0c7
+1732561089: Client mqttx_87dfd0c7 closed its connection.
+1732561520: mosquitto version 2.0.20 starting
+1732561520: Config loaded from /mosquitto/config/mosquitto.conf.
+1732561520: Warning: File /mosquitto/passwd_file/password.txt has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/passwd_file/password.txt`.
+1732561520: Opening ipv4 listen socket on port 1883.
+1732561520: mosquitto version 2.0.20 running
+1732561631: New connection from 172.18.0.1:47922 on port 1883.
+1732561631: New client connected from 172.18.0.1:47922 as mymqtt-87963190788735 (p2, c0, k60, u'admin').
+1732561631: No will message specified.
+1732561631: Sending CONNACK to mymqtt-87963190788735 (0, 0)
+1732561631: Received SUBSCRIBE from mymqtt-87963190788735
+1732561631: 	/casa/boton (QoS 2)
+1732561631: mymqtt-87963190788735 2 /casa/boton
+1732561631: 	/casa/temperatura (QoS 2)
+1732561631: mymqtt-87963190788735 2 /casa/temperatura
+1732561631: 	/SmartCofee/Cafetera (QoS 2)
+1732561631: mymqtt-87963190788735 2 /SmartCofee/Cafetera
+1732561631: 	/SmartCoffe/Cafetera (QoS 2)
+1732561631: mymqtt-87963190788735 2 /SmartCoffe/Cafetera
+1732561631: 	/button/buzzer (QoS 2)
+1732561631: mymqtt-87963190788735 2 /button/buzzer
+1732561631: 	/button/led (QoS 2)
+1732561631: mymqtt-87963190788735 2 /button/led
+1732561631: 	/system/state (QoS 2)
+1732561631: mymqtt-87963190788735 2 /system/state
+1732561631: 	/move/state (QoS 2)
+1732561631: mymqtt-87963190788735 2 /move/state
+1732561631: Sending SUBACK to mymqtt-87963190788735
+1732561657: New connection from 172.18.0.1:54048 on port 1883.
+1732561657: New client connected from 172.18.0.1:54048 as mqttx_87dfd0c7 (p5, c1, k60, u'admin').
+1732561657: No will message specified.
+1732561657: Sending CONNACK to mqttx_87dfd0c7 (0, 0)
+1732561657: Received SUBSCRIBE from mqttx_87dfd0c7
+1732561657: 	/casa/luz (QoS 0)
+1732561657: mqttx_87dfd0c7 0 /casa/luz
+1732561657: Sending SUBACK to mqttx_87dfd0c7
+1732561678: Received PUBLISH from mymqtt-87963190788735 (d0, q0, r0, m0, '/casa/luz', ... (4 bytes))
+1732561678: Sending PUBLISH to mqttx_87dfd0c7 (d0, q0, r0, m0, '/casa/luz', ... (4 bytes))
+1732561691: Received PINGREQ from mymqtt-87963190788735
+1732561691: Sending PINGRESP to mymqtt-87963190788735
+1732561695: Received SUBSCRIBE from mymqtt-87963190788735
+1732561695: 	/casa/luz (QoS 2)
+1732561695: mymqtt-87963190788735 2 /casa/luz
+1732561695: Sending SUBACK to mymqtt-87963190788735
+1732561697: Received SUBSCRIBE from mymqtt-87963190788735
+1732561697: 	/casa/luz (QoS 2)
+1732561697: mymqtt-87963190788735 2 /casa/luz
+1732561697: Sending SUBACK to mymqtt-87963190788735
+1732561702: Received PUBLISH from mqttx_87dfd0c7 (d0, q0, r0, m0, '/casa/luz', ... (1 bytes))
+1732561702: Sending PUBLISH to mqttx_87dfd0c7 (d0, q0, r0, m0, '/casa/luz', ... (1 bytes))
+1732561702: Sending PUBLISH to mymqtt-87963190788735 (d0, q0, r0, m0, '/casa/luz', ... (1 bytes))
+1732561757: Received PINGREQ from mymqtt-87963190788735
+1732561757: Sending PINGRESP to mymqtt-87963190788735
+1732561762: Received PINGREQ from mqttx_87dfd0c7
+1732561762: Sending PINGRESP to mqttx_87dfd0c7
+1732561817: Received PINGREQ from mymqtt-87963190788735
+1732561817: Sending PINGRESP to mymqtt-87963190788735
+1732561822: Received PINGREQ from mqttx_87dfd0c7
+1732561822: Sending PINGRESP to mqttx_87dfd0c7
+1732561877: Received PINGREQ from mymqtt-87963190788735
+1732561877: Sending PINGRESP to mymqtt-87963190788735
+1732561883: Received PINGREQ from mqttx_87dfd0c7
+1732561883: Sending PINGRESP to mqttx_87dfd0c7
+1732561937: Received PINGREQ from mymqtt-87963190788735
+1732561937: Sending PINGRESP to mymqtt-87963190788735
+1732561944: Received PINGREQ from mqttx_87dfd0c7
+1732561944: Sending PINGRESP to mqttx_87dfd0c7
+1732561990: Received DISCONNECT from mqttx_87dfd0c7
+1732561990: Client mqttx_87dfd0c7 disconnected.
+1732561997: Received PINGREQ from mymqtt-87963190788735
+1732561997: Sending PINGRESP to mymqtt-87963190788735
+1732562057: Received PINGREQ from mymqtt-87963190788735
+1732562057: Sending PINGRESP to mymqtt-87963190788735
+1732562117: Received PINGREQ from mymqtt-87963190788735
+1732562117: Sending PINGRESP to mymqtt-87963190788735
+1732562121: New connection from 172.18.0.1:54686 on port 1883.
+1732562121: Sending CONNACK to auto-02C4B394-8B91-41B7-9BF9-85DE067BF22F (0, 5)
+1732562121: Client auto-02C4B394-8B91-41B7-9BF9-85DE067BF22F disconnected, not authorised.
+1732562122: New connection from 172.18.0.1:54690 on port 1883.
+1732562122: Sending CONNACK to auto-BD76C937-56C5-6C8F-DD11-1F7258782875 (0, 5)
+1732562122: Client auto-BD76C937-56C5-6C8F-DD11-1F7258782875 disconnected, not authorised.
+1732562124: New connection from 172.18.0.1:54696 on port 1883.
+1732562124: Sending CONNACK to auto-ADC0FFEB-C78F-5021-727E-CE2034F32C9F (0, 5)
+1732562124: Client auto-ADC0FFEB-C78F-5021-727E-CE2034F32C9F disconnected, not authorised.
+1732562128: New connection from 172.18.0.1:54698 on port 1883.
+1732562128: Sending CONNACK to auto-58F7D86F-9F23-8692-6AE8-4EFA58151141 (0, 5)
+1732562128: Client auto-58F7D86F-9F23-8692-6AE8-4EFA58151141 disconnected, not authorised.
+1732562177: Received PINGREQ from mymqtt-87963190788735
+1732562177: Sending PINGRESP to mymqtt-87963190788735
+1732562194: New connection from 172.18.0.1:38756 on port 1883.
+1732562194: Sending CONNACK to auto-35FCF956-7B14-76FE-E66C-7F17ACD9CBDA (0, 5)
+1732562194: Client auto-35FCF956-7B14-76FE-E66C-7F17ACD9CBDA disconnected, not authorised.
+1732562195: New connection from 172.18.0.1:38772 on port 1883.
+1732562195: Sending CONNACK to auto-339ED819-1025-8C30-2241-269DCA7C1BED (0, 5)
+1732562195: Client auto-339ED819-1025-8C30-2241-269DCA7C1BED disconnected, not authorised.
+1732562208: New connection from 172.18.0.1:53696 on port 1883.
+1732562208: Sending CONNACK to auto-D81C3102-0892-B75F-3044-BDFB20A6C653 (0, 5)
+1732562208: Client auto-D81C3102-0892-B75F-3044-BDFB20A6C653 disconnected, not authorised.
+1732562209: New connection from 172.18.0.1:59072 on port 1883.
+1732562209: Sending CONNACK to auto-FAE5E793-0EBA-3679-9FB6-AFC27618811F (0, 5)
+1732562209: Client auto-FAE5E793-0EBA-3679-9FB6-AFC27618811F disconnected, not authorised.
+1732562211: New connection from 172.18.0.1:59082 on port 1883.
+1732562211: Sending CONNACK to auto-A0F90CCB-11CF-7506-F993-51E90B58ADB2 (0, 5)
+1732562211: Client auto-A0F90CCB-11CF-7506-F993-51E90B58ADB2 disconnected, not authorised.
+1732562237: Received PINGREQ from mymqtt-87963190788735
+1732562237: Sending PINGRESP to mymqtt-87963190788735
+1732562297: Received PINGREQ from mymqtt-87963190788735
+1732562297: Sending PINGRESP to mymqtt-87963190788735
+1732562357: Received PINGREQ from mymqtt-87963190788735
+1732562357: Sending PINGRESP to mymqtt-87963190788735
+1732562417: Received PINGREQ from mymqtt-87963190788735
+1732562417: Sending PINGRESP to mymqtt-87963190788735
+1732562476: Received PINGREQ from mymqtt-87963190788735
+1732562476: Sending PINGRESP to mymqtt-87963190788735
+1732562531: New connection from 172.18.0.1:49474 on port 1883.
+1732562531: New client connected from 172.18.0.1:49474 as auto-9F26DEC6-2C79-53B0-21E9-A8518A582781 (p2, c1, k60, u'admin').
+1732562531: No will message specified.
+1732562531: Sending CONNACK to auto-9F26DEC6-2C79-53B0-21E9-A8518A582781 (0, 0)
+1732562531: Received SUBSCRIBE from auto-9F26DEC6-2C79-53B0-21E9-A8518A582781
+1732562531: 	/door/ctrl (QoS 0)
+1732562531: auto-9F26DEC6-2C79-53B0-21E9-A8518A582781 0 /door/ctrl
+1732562531: Sending SUBACK to auto-9F26DEC6-2C79-53B0-21E9-A8518A582781
+1732562531: Received SUBSCRIBE from auto-9F26DEC6-2C79-53B0-21E9-A8518A582781
+1732562531: 	/alarm/ctrl (QoS 0)
+1732562531: auto-9F26DEC6-2C79-53B0-21E9-A8518A582781 0 /alarm/ctrl
+1732562531: Sending SUBACK to auto-9F26DEC6-2C79-53B0-21E9-A8518A582781
+1732562536: Received PINGREQ from mymqtt-87963190788735
+1732562536: Sending PINGRESP to mymqtt-87963190788735
+1732562538: Client auto-9F26DEC6-2C79-53B0-21E9-A8518A582781 closed its connection.
+1732562561: New connection from 172.18.0.1:45974 on port 1883.
+1732562561: New client connected from 172.18.0.1:45974 as auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (p2, c1, k60, u'admin').
+1732562561: No will message specified.
+1732562561: Sending CONNACK to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (0, 0)
+1732562561: Received SUBSCRIBE from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732562561: 	/door/ctrl (QoS 0)
+1732562561: auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB 0 /door/ctrl
+1732562561: Sending SUBACK to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732562561: Received SUBSCRIBE from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732562561: 	/alarm/ctrl (QoS 0)
+1732562561: auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB 0 /alarm/ctrl
+1732562561: Sending SUBACK to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732562596: Received PINGREQ from mymqtt-87963190788735
+1732562596: Sending PINGRESP to mymqtt-87963190788735
+1732562621: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732562621: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732562656: Received PINGREQ from mymqtt-87963190788735
+1732562656: Sending PINGRESP to mymqtt-87963190788735
+1732562681: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732562681: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732562716: Received PINGREQ from mymqtt-87963190788735
+1732562716: Sending PINGRESP to mymqtt-87963190788735
+1732562742: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732562742: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732562776: Received PINGREQ from mymqtt-87963190788735
+1732562776: Sending PINGRESP to mymqtt-87963190788735
+1732562802: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732562802: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732562836: Received PINGREQ from mymqtt-87963190788735
+1732562836: Sending PINGRESP to mymqtt-87963190788735
+1732562862: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732562862: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732562896: Received PINGREQ from mymqtt-87963190788735
+1732562896: Sending PINGRESP to mymqtt-87963190788735
+1732562923: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732562923: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732562956: Received PINGREQ from mymqtt-87963190788735
+1732562956: Sending PINGRESP to mymqtt-87963190788735
+1732562983: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732562983: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563016: Received PINGREQ from mymqtt-87963190788735
+1732563016: Sending PINGRESP to mymqtt-87963190788735
+1732563043: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563043: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563076: Received PINGREQ from mymqtt-87963190788735
+1732563076: Sending PINGRESP to mymqtt-87963190788735
+1732563104: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563104: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563136: Received PINGREQ from mymqtt-87963190788735
+1732563136: Sending PINGRESP to mymqtt-87963190788735
+1732563164: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563164: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563196: Received PINGREQ from mymqtt-87963190788735
+1732563196: Sending PINGRESP to mymqtt-87963190788735
+1732563224: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563224: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563256: Received PINGREQ from mymqtt-87963190788735
+1732563256: Sending PINGRESP to mymqtt-87963190788735
+1732563285: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563285: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563316: Received PINGREQ from mymqtt-87963190788735
+1732563316: Sending PINGRESP to mymqtt-87963190788735
+1732563321: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1732563345: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563345: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563371: New connection from 172.18.0.1:52924 on port 1883.
+1732563372: Sending CONNACK to mqttx_f9bfd3ww (0, 5)
+1732563372: Client mqttx_f9bfd3ww disconnected, not authorised.
+1732563372: New connection from 172.18.0.1:52936 on port 1883.
+1732563372: Sending CONNACK to mqttx_f9bfd3ww (0, 5)
+1732563372: Client mqttx_f9bfd3ww disconnected, not authorised.
+1732563376: Received PINGREQ from mymqtt-87963190788735
+1732563376: Sending PINGRESP to mymqtt-87963190788735
+1732563405: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563405: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563420: New connection from 172.18.0.1:49070 on port 1883.
+1732563421: Sending CONNACK to mqttx_f9bfd3ww (0, 5)
+1732563421: Client mqttx_f9bfd3ww disconnected, not authorised.
+1732563421: New connection from 172.18.0.1:49076 on port 1883.
+1732563421: Sending CONNACK to mqttx_f9bfd3ww (0, 5)
+1732563421: Client mqttx_f9bfd3ww disconnected, not authorised.
+1732563436: Received PINGREQ from mymqtt-87963190788735
+1732563436: Sending PINGRESP to mymqtt-87963190788735
+1732563443: New connection from 172.18.0.1:45238 on port 1883.
+1732563443: New client connected from 172.18.0.1:45238 as mqttx_f9bfd3ww (p2, c1, k60, u'admin').
+1732563443: No will message specified.
+1732563443: Sending CONNACK to mqttx_f9bfd3ww (0, 0)
+1732563444: Received SUBSCRIBE from mqttx_f9bfd3ww
+1732563444: 	/move/state (QoS 1)
+1732563444: mqttx_f9bfd3ww 1 /move/state
+1732563444: Sending SUBACK to mqttx_f9bfd3ww
+1732563444: Received SUBSCRIBE from mqttx_f9bfd3ww
+1732563444: 	/system/state (QoS 1)
+1732563444: mqttx_f9bfd3ww 1 /system/state
+1732563444: Sending SUBACK to mqttx_f9bfd3ww
+1732563444: Received SUBSCRIBE from mqttx_f9bfd3ww
+1732563444: 	/alarm/state (QoS 1)
+1732563444: mqttx_f9bfd3ww 1 /alarm/state
+1732563444: Sending SUBACK to mqttx_f9bfd3ww
+1732563444: Received SUBSCRIBE from mqttx_f9bfd3ww
+1732563444: 	/door/state (QoS 1)
+1732563444: mqttx_f9bfd3ww 1 /door/state
+1732563444: Sending SUBACK to mqttx_f9bfd3ww
+1732563447: Received PUBLISH from mqttx_f9bfd3ww (d0, q2, r0, m5, '/alarm/ctrl', ... (2 bytes))
+1732563447: Sending PUBREC to mqttx_f9bfd3ww (m5, rc0)
+1732563447: Received PUBREL from mqttx_f9bfd3ww (Mid: 5)
+1732563447: Sending PUBLISH to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/alarm/ctrl', ... (2 bytes))
+1732563447: Sending PUBCOMP to mqttx_f9bfd3ww (m5)
+1732563451: Received PUBLISH from mqttx_f9bfd3ww (d0, q2, r0, m6, '/alarm/ctrl', ... (3 bytes))
+1732563451: Sending PUBREC to mqttx_f9bfd3ww (m6, rc0)
+1732563451: Received PUBREL from mqttx_f9bfd3ww (Mid: 6)
+1732563451: Sending PUBLISH to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/alarm/ctrl', ... (3 bytes))
+1732563451: Sending PUBCOMP to mqttx_f9bfd3ww (m6)
+1732563457: Received PUBLISH from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/system/state', ... (17 bytes))
+1732563457: Sending PUBLISH to mymqtt-87963190788735 (d0, q0, r0, m0, '/system/state', ... (17 bytes))
+1732563457: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/system/state', ... (17 bytes))
+1732563459: Received PUBLISH from mqttx_f9bfd3ww (d0, q2, r0, m7, '/alarm/ctrl', ... (2 bytes))
+1732563459: Sending PUBREC to mqttx_f9bfd3ww (m7, rc0)
+1732563459: Received PUBREL from mqttx_f9bfd3ww (Mid: 7)
+1732563459: Sending PUBLISH to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/alarm/ctrl', ... (2 bytes))
+1732563459: Sending PUBCOMP to mqttx_f9bfd3ww (m7)
+1732563459: Received PUBLISH from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/alarm/state', ... (2 bytes))
+1732563459: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/alarm/state', ... (2 bytes))
+1732563463: Received PUBLISH from mqttx_f9bfd3ww (d0, q2, r0, m8, '/alarm/ctrl', ... (3 bytes))
+1732563463: Sending PUBREC to mqttx_f9bfd3ww (m8, rc0)
+1732563463: Received PUBREL from mqttx_f9bfd3ww (Mid: 8)
+1732563463: Sending PUBLISH to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/alarm/ctrl', ... (3 bytes))
+1732563463: Sending PUBCOMP to mqttx_f9bfd3ww (m8)
+1732563463: Received PUBLISH from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/alarm/state', ... (3 bytes))
+1732563463: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/alarm/state', ... (3 bytes))
+1732563465: Received PUBLISH from mqttx_f9bfd3ww (d0, q2, r0, m9, '/door/ctrl', ... (4 bytes))
+1732563465: Sending PUBREC to mqttx_f9bfd3ww (m9, rc0)
+1732563465: Received PUBREL from mqttx_f9bfd3ww (Mid: 9)
+1732563465: Sending PUBLISH to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/door/ctrl', ... (4 bytes))
+1732563465: Sending PUBCOMP to mqttx_f9bfd3ww (m9)
+1732563465: Received PUBLISH from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/door/state', ... (4 bytes))
+1732563465: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/door/state', ... (4 bytes))
+1732563466: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563466: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563466: Received PUBLISH from mqttx_f9bfd3ww (d0, q2, r0, m10, '/door/ctrl', ... (5 bytes))
+1732563466: Sending PUBREC to mqttx_f9bfd3ww (m10, rc0)
+1732563466: Received PUBREL from mqttx_f9bfd3ww (Mid: 10)
+1732563466: Sending PUBLISH to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/door/ctrl', ... (5 bytes))
+1732563466: Sending PUBCOMP to mqttx_f9bfd3ww (m10)
+1732563466: Received PUBLISH from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/door/state', ... (5 bytes))
+1732563466: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/door/state', ... (5 bytes))
+1732563469: Received PUBLISH from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/move/state', ... (20 bytes))
+1732563469: Sending PUBLISH to mymqtt-87963190788735 (d0, q0, r0, m0, '/move/state', ... (20 bytes))
+1732563469: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/move/state', ... (20 bytes))
+1732563474: Received PUBLISH from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/alarm/state', ... (2 bytes))
+1732563474: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/alarm/state', ... (2 bytes))
+1732563475: Received PUBLISH from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/alarm/state', ... (3 bytes))
+1732563475: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/alarm/state', ... (3 bytes))
+1732563480: Client mqttx_f9bfd3ww closed its connection.
+1732563496: Received PINGREQ from mymqtt-87963190788735
+1732563496: Sending PINGRESP to mymqtt-87963190788735
+1732563526: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563526: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563556: Received PINGREQ from mymqtt-87963190788735
+1732563556: Sending PINGRESP to mymqtt-87963190788735
+1732563586: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563586: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563616: Received PINGREQ from mymqtt-87963190788735
+1732563616: Sending PINGRESP to mymqtt-87963190788735
+1732563647: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563647: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563658: New connection from 172.18.0.1:53206 on port 1883.
+1732563658: New client connected from 172.18.0.1:53206 as mqttx_f9bfd3ww (p2, c1, k60, u'admin').
+1732563658: No will message specified.
+1732563658: Sending CONNACK to mqttx_f9bfd3ww (0, 0)
+1732563659: Received SUBSCRIBE from mqttx_f9bfd3ww
+1732563659: 	/move/state (QoS 1)
+1732563659: mqttx_f9bfd3ww 1 /move/state
+1732563659: Sending SUBACK to mqttx_f9bfd3ww
+1732563659: Received SUBSCRIBE from mqttx_f9bfd3ww
+1732563659: 	/system/state (QoS 1)
+1732563659: mqttx_f9bfd3ww 1 /system/state
+1732563659: Sending SUBACK to mqttx_f9bfd3ww
+1732563659: Received SUBSCRIBE from mqttx_f9bfd3ww
+1732563659: 	/alarm/state (QoS 1)
+1732563659: mqttx_f9bfd3ww 1 /alarm/state
+1732563659: Sending SUBACK to mqttx_f9bfd3ww
+1732563659: Received SUBSCRIBE from mqttx_f9bfd3ww
+1732563659: 	/door/state (QoS 1)
+1732563659: mqttx_f9bfd3ww 1 /door/state
+1732563659: Sending SUBACK to mqttx_f9bfd3ww
+1732563661: Received PUBLISH from mqttx_f9bfd3ww (d0, q2, r0, m5, '/door/ctrl', ... (4 bytes))
+1732563661: Sending PUBREC to mqttx_f9bfd3ww (m5, rc0)
+1732563661: Received PUBREL from mqttx_f9bfd3ww (Mid: 5)
+1732563661: Sending PUBLISH to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/door/ctrl', ... (4 bytes))
+1732563661: Sending PUBCOMP to mqttx_f9bfd3ww (m5)
+1732563661: Received PUBLISH from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/door/state', ... (4 bytes))
+1732563661: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/door/state', ... (4 bytes))
+1732563662: Received PUBLISH from mqttx_f9bfd3ww (d0, q2, r0, m6, '/door/ctrl', ... (5 bytes))
+1732563662: Sending PUBREC to mqttx_f9bfd3ww (m6, rc0)
+1732563662: Received PUBREL from mqttx_f9bfd3ww (Mid: 6)
+1732563662: Sending PUBLISH to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/door/ctrl', ... (5 bytes))
+1732563662: Sending PUBCOMP to mqttx_f9bfd3ww (m6)
+1732563662: Received PUBLISH from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/door/state', ... (5 bytes))
+1732563662: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/door/state', ... (5 bytes))
+1732563663: Received PUBLISH from mqttx_f9bfd3ww (d0, q2, r0, m7, '/alarm/ctrl', ... (2 bytes))
+1732563663: Sending PUBREC to mqttx_f9bfd3ww (m7, rc0)
+1732563663: Received PUBREL from mqttx_f9bfd3ww (Mid: 7)
+1732563663: Sending PUBLISH to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/alarm/ctrl', ... (2 bytes))
+1732563663: Sending PUBCOMP to mqttx_f9bfd3ww (m7)
+1732563663: Received PUBLISH from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/alarm/state', ... (2 bytes))
+1732563663: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/alarm/state', ... (2 bytes))
+1732563664: Received PUBLISH from mqttx_f9bfd3ww (d0, q2, r0, m8, '/alarm/ctrl', ... (3 bytes))
+1732563664: Sending PUBREC to mqttx_f9bfd3ww (m8, rc0)
+1732563664: Received PUBREL from mqttx_f9bfd3ww (Mid: 8)
+1732563664: Sending PUBLISH to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/alarm/ctrl', ... (3 bytes))
+1732563664: Sending PUBCOMP to mqttx_f9bfd3ww (m8)
+1732563664: Received PUBLISH from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/alarm/state', ... (3 bytes))
+1732563664: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/alarm/state', ... (3 bytes))
+1732563669: Received PUBLISH from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/move/state', ... (20 bytes))
+1732563669: Sending PUBLISH to mymqtt-87963190788735 (d0, q0, r0, m0, '/move/state', ... (20 bytes))
+1732563669: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/move/state', ... (20 bytes))
+1732563676: Received PINGREQ from mymqtt-87963190788735
+1732563676: Sending PINGRESP to mymqtt-87963190788735
+1732563677: Received PUBLISH from mqttx_f9bfd3ww (d0, q2, r0, m9, '/alarm/ctrl', ... (2 bytes))
+1732563677: Sending PUBREC to mqttx_f9bfd3ww (m9, rc0)
+1732563677: Received PUBREL from mqttx_f9bfd3ww (Mid: 9)
+1732563677: Sending PUBLISH to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/alarm/ctrl', ... (2 bytes))
+1732563677: Sending PUBCOMP to mqttx_f9bfd3ww (m9)
+1732563677: Received PUBLISH from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/alarm/state', ... (2 bytes))
+1732563677: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/alarm/state', ... (2 bytes))
+1732563679: Received PUBLISH from mqttx_f9bfd3ww (d0, q2, r0, m10, '/alarm/ctrl', ... (3 bytes))
+1732563679: Sending PUBREC to mqttx_f9bfd3ww (m10, rc0)
+1732563679: Received PUBREL from mqttx_f9bfd3ww (Mid: 10)
+1732563679: Sending PUBLISH to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/alarm/ctrl', ... (3 bytes))
+1732563679: Sending PUBCOMP to mqttx_f9bfd3ww (m10)
+1732563679: Received PUBLISH from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/alarm/state', ... (3 bytes))
+1732563679: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/alarm/state', ... (3 bytes))
+1732563684: Client mqttx_f9bfd3ww closed its connection.
+1732563707: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563707: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563736: Received PINGREQ from mymqtt-87963190788735
+1732563736: Sending PINGRESP to mymqtt-87963190788735
+1732563767: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563767: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563796: Received PINGREQ from mymqtt-87963190788735
+1732563796: Sending PINGRESP to mymqtt-87963190788735
+1732563828: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563828: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563855: Received PINGREQ from mymqtt-87963190788735
+1732563855: Sending PINGRESP to mymqtt-87963190788735
+1732563888: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563888: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563915: Received PINGREQ from mymqtt-87963190788735
+1732563915: Sending PINGRESP to mymqtt-87963190788735
+1732563948: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563948: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732563975: Received PINGREQ from mymqtt-87963190788735
+1732563975: Sending PINGRESP to mymqtt-87963190788735
+1732564009: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732564009: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732564035: Received PINGREQ from mymqtt-87963190788735
+1732564035: Sending PINGRESP to mymqtt-87963190788735
+1732564069: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732564069: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732564095: Received PINGREQ from mymqtt-87963190788735
+1732564095: Sending PINGRESP to mymqtt-87963190788735
+1732564129: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732564129: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732564155: Received PINGREQ from mymqtt-87963190788735
+1732564155: Sending PINGRESP to mymqtt-87963190788735
+1732564166: New connection from 172.18.0.1:49554 on port 1883.
+1732564166: New client connected from 172.18.0.1:49554 as mqttx_f9bfd3ww (p2, c1, k60, u'admin').
+1732564166: No will message specified.
+1732564166: Sending CONNACK to mqttx_f9bfd3ww (0, 0)
+1732564168: Received SUBSCRIBE from mqttx_f9bfd3ww
+1732564168: 	/move/state (QoS 1)
+1732564168: mqttx_f9bfd3ww 1 /move/state
+1732564168: Sending SUBACK to mqttx_f9bfd3ww
+1732564168: Received SUBSCRIBE from mqttx_f9bfd3ww
+1732564168: 	/system/state (QoS 1)
+1732564168: mqttx_f9bfd3ww 1 /system/state
+1732564168: Sending SUBACK to mqttx_f9bfd3ww
+1732564168: Received SUBSCRIBE from mqttx_f9bfd3ww
+1732564168: 	/alarm/state (QoS 1)
+1732564168: mqttx_f9bfd3ww 1 /alarm/state
+1732564168: Sending SUBACK to mqttx_f9bfd3ww
+1732564168: Received SUBSCRIBE from mqttx_f9bfd3ww
+1732564168: 	/door/state (QoS 1)
+1732564168: mqttx_f9bfd3ww 1 /door/state
+1732564168: Sending SUBACK to mqttx_f9bfd3ww
+1732564170: Received PUBLISH from mqttx_f9bfd3ww (d0, q2, r0, m5, '/alarm/ctrl', ... (2 bytes))
+1732564170: Sending PUBREC to mqttx_f9bfd3ww (m5, rc0)
+1732564170: Received PUBREL from mqttx_f9bfd3ww (Mid: 5)
+1732564170: Sending PUBLISH to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/alarm/ctrl', ... (2 bytes))
+1732564170: Sending PUBCOMP to mqttx_f9bfd3ww (m5)
+1732564170: Received PUBLISH from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/alarm/state', ... (2 bytes))
+1732564170: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/alarm/state', ... (2 bytes))
+1732564171: Received PUBLISH from mqttx_f9bfd3ww (d0, q2, r0, m6, '/alarm/ctrl', ... (3 bytes))
+1732564171: Sending PUBREC to mqttx_f9bfd3ww (m6, rc0)
+1732564171: Received PUBREL from mqttx_f9bfd3ww (Mid: 6)
+1732564171: Sending PUBLISH to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/alarm/ctrl', ... (3 bytes))
+1732564171: Sending PUBCOMP to mqttx_f9bfd3ww (m6)
+1732564171: Received PUBLISH from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB (d0, q0, r0, m0, '/alarm/state', ... (3 bytes))
+1732564171: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/alarm/state', ... (3 bytes))
+1732564174: Client mqttx_f9bfd3ww closed its connection.
+1732564189: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732564189: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732564215: Received PINGREQ from mymqtt-87963190788735
+1732564215: Sending PINGRESP to mymqtt-87963190788735
+1732564250: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732564250: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732564275: Received PINGREQ from mymqtt-87963190788735
+1732564275: Sending PINGRESP to mymqtt-87963190788735
+1732564310: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732564310: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732564335: Received PINGREQ from mymqtt-87963190788735
+1732564335: Sending PINGRESP to mymqtt-87963190788735
+1732564370: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732564370: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732564395: Received PINGREQ from mymqtt-87963190788735
+1732564395: Sending PINGRESP to mymqtt-87963190788735
+1732564431: Received PINGREQ from auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732564431: Sending PINGRESP to auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB
+1732564434: Client auto-FB8C7BF9-7266-D730-29CC-37E2FF95BBBB closed its connection.
+1732564455: Received PINGREQ from mymqtt-87963190788735
+1732564455: Sending PINGRESP to mymqtt-87963190788735
+1732564478: New connection from 172.18.0.1:49054 on port 1883.
+1732564478: New client connected from 172.18.0.1:49054 as auto-08818672-8C82-016D-D7A4-316680DB0B85 (p2, c1, k60, u'admin').
+1732564478: No will message specified.
+1732564478: Sending CONNACK to auto-08818672-8C82-016D-D7A4-316680DB0B85 (0, 0)
+1732564478: Received SUBSCRIBE from auto-08818672-8C82-016D-D7A4-316680DB0B85
+1732564478: 	/door/ctrl (QoS 0)
+1732564478: auto-08818672-8C82-016D-D7A4-316680DB0B85 0 /door/ctrl
+1732564478: Sending SUBACK to auto-08818672-8C82-016D-D7A4-316680DB0B85
+1732564478: Received SUBSCRIBE from auto-08818672-8C82-016D-D7A4-316680DB0B85
+1732564478: 	/alarm/ctrl (QoS 0)
+1732564478: auto-08818672-8C82-016D-D7A4-316680DB0B85 0 /alarm/ctrl
+1732564478: Sending SUBACK to auto-08818672-8C82-016D-D7A4-316680DB0B85
+1732564488: New connection from 172.18.0.1:59026 on port 1883.
+1732564488: New client connected from 172.18.0.1:59026 as mqttx_f9bfd3ww (p2, c1, k60, u'admin').
+1732564488: No will message specified.
+1732564488: Sending CONNACK to mqttx_f9bfd3ww (0, 0)
+1732564489: Received SUBSCRIBE from mqttx_f9bfd3ww
+1732564489: 	/move/state (QoS 1)
+1732564489: mqttx_f9bfd3ww 1 /move/state
+1732564489: Sending SUBACK to mqttx_f9bfd3ww
+1732564489: Received SUBSCRIBE from mqttx_f9bfd3ww
+1732564489: 	/system/state (QoS 1)
+1732564489: mqttx_f9bfd3ww 1 /system/state
+1732564489: Sending SUBACK to mqttx_f9bfd3ww
+1732564489: Received SUBSCRIBE from mqttx_f9bfd3ww
+1732564489: 	/alarm/state (QoS 1)
+1732564489: mqttx_f9bfd3ww 1 /alarm/state
+1732564489: Sending SUBACK to mqttx_f9bfd3ww
+1732564489: Received SUBSCRIBE from mqttx_f9bfd3ww
+1732564489: 	/door/state (QoS 1)
+1732564489: mqttx_f9bfd3ww 1 /door/state
+1732564489: Sending SUBACK to mqttx_f9bfd3ww
+1732564490: Received PUBLISH from mqttx_f9bfd3ww (d0, q2, r0, m5, '/alarm/ctrl', ... (2 bytes))
+1732564490: Sending PUBREC to mqttx_f9bfd3ww (m5, rc0)
+1732564490: Received PUBREL from mqttx_f9bfd3ww (Mid: 5)
+1732564490: Sending PUBLISH to auto-08818672-8C82-016D-D7A4-316680DB0B85 (d0, q0, r0, m0, '/alarm/ctrl', ... (2 bytes))
+1732564490: Sending PUBCOMP to mqttx_f9bfd3ww (m5)
+1732564492: Received PUBLISH from mqttx_f9bfd3ww (d0, q2, r0, m6, '/alarm/ctrl', ... (3 bytes))
+1732564492: Sending PUBREC to mqttx_f9bfd3ww (m6, rc0)
+1732564492: Received PUBREL from mqttx_f9bfd3ww (Mid: 6)
+1732564492: Sending PUBLISH to auto-08818672-8C82-016D-D7A4-316680DB0B85 (d0, q0, r0, m0, '/alarm/ctrl', ... (3 bytes))
+1732564492: Sending PUBCOMP to mqttx_f9bfd3ww (m6)
+1732564498: Received PUBLISH from auto-08818672-8C82-016D-D7A4-316680DB0B85 (d0, q0, r0, m0, '/system/state', ... (17 bytes))
+1732564498: Sending PUBLISH to mymqtt-87963190788735 (d0, q0, r0, m0, '/system/state', ... (17 bytes))
+1732564498: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/system/state', ... (17 bytes))
+1732564499: Received PUBLISH from mqttx_f9bfd3ww (d0, q2, r0, m7, '/alarm/ctrl', ... (2 bytes))
+1732564499: Sending PUBREC to mqttx_f9bfd3ww (m7, rc0)
+1732564499: Received PUBREL from mqttx_f9bfd3ww (Mid: 7)
+1732564499: Sending PUBLISH to auto-08818672-8C82-016D-D7A4-316680DB0B85 (d0, q0, r0, m0, '/alarm/ctrl', ... (2 bytes))
+1732564499: Sending PUBCOMP to mqttx_f9bfd3ww (m7)
+1732564499: Received PUBLISH from auto-08818672-8C82-016D-D7A4-316680DB0B85 (d0, q0, r0, m0, '/alarm/state', ... (2 bytes))
+1732564499: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/alarm/state', ... (2 bytes))
+1732564502: Received PUBLISH from mqttx_f9bfd3ww (d0, q2, r0, m8, '/alarm/ctrl', ... (3 bytes))
+1732564502: Sending PUBREC to mqttx_f9bfd3ww (m8, rc0)
+1732564502: Received PUBREL from mqttx_f9bfd3ww (Mid: 8)
+1732564502: Sending PUBLISH to auto-08818672-8C82-016D-D7A4-316680DB0B85 (d0, q0, r0, m0, '/alarm/ctrl', ... (3 bytes))
+1732564502: Sending PUBCOMP to mqttx_f9bfd3ww (m8)
+1732564502: Received PUBLISH from auto-08818672-8C82-016D-D7A4-316680DB0B85 (d0, q0, r0, m0, '/alarm/state', ... (3 bytes))
+1732564502: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/alarm/state', ... (3 bytes))
+1732564503: Received PUBLISH from auto-08818672-8C82-016D-D7A4-316680DB0B85 (d0, q0, r0, m0, '/move/state', ... (20 bytes))
+1732564503: Sending PUBLISH to mymqtt-87963190788735 (d0, q0, r0, m0, '/move/state', ... (20 bytes))
+1732564503: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/move/state', ... (20 bytes))
+1732564506: Received PUBLISH from mqttx_f9bfd3ww (d0, q2, r0, m9, '/alarm/ctrl', ... (2 bytes))
+1732564506: Sending PUBREC to mqttx_f9bfd3ww (m9, rc0)
+1732564506: Received PUBREL from mqttx_f9bfd3ww (Mid: 9)
+1732564506: Sending PUBLISH to auto-08818672-8C82-016D-D7A4-316680DB0B85 (d0, q0, r0, m0, '/alarm/ctrl', ... (2 bytes))
+1732564506: Sending PUBCOMP to mqttx_f9bfd3ww (m9)
+1732564507: Received PUBLISH from auto-08818672-8C82-016D-D7A4-316680DB0B85 (d0, q0, r0, m0, '/alarm/state', ... (2 bytes))
+1732564507: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/alarm/state', ... (2 bytes))
+1732564508: Received PUBLISH from mqttx_f9bfd3ww (d0, q2, r0, m10, '/alarm/ctrl', ... (3 bytes))
+1732564508: Sending PUBREC to mqttx_f9bfd3ww (m10, rc0)
+1732564508: Received PUBREL from mqttx_f9bfd3ww (Mid: 10)
+1732564508: Sending PUBLISH to auto-08818672-8C82-016D-D7A4-316680DB0B85 (d0, q0, r0, m0, '/alarm/ctrl', ... (3 bytes))
+1732564508: Sending PUBCOMP to mqttx_f9bfd3ww (m10)
+1732564508: Received PUBLISH from auto-08818672-8C82-016D-D7A4-316680DB0B85 (d0, q0, r0, m0, '/alarm/state', ... (3 bytes))
+1732564508: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/alarm/state', ... (3 bytes))
+1732564511: Client mqttx_f9bfd3ww closed its connection.
+1732564514: Client auto-08818672-8C82-016D-D7A4-316680DB0B85 closed its connection.
+1732564515: Received PINGREQ from mymqtt-87963190788735
+1732564515: Sending PINGRESP to mymqtt-87963190788735
+1732564575: Received PINGREQ from mymqtt-87963190788735
+1732564575: Sending PINGRESP to mymqtt-87963190788735
+1732564635: Received PINGREQ from mymqtt-87963190788735
+1732564635: Sending PINGRESP to mymqtt-87963190788735
+1732564638: New connection from 172.18.0.1:40230 on port 1883.
+1732564638: New client connected from 172.18.0.1:40230 as mqttx_f9bfd3ww (p2, c1, k60, u'admin').
+1732564638: No will message specified.
+1732564638: Sending CONNACK to mqttx_f9bfd3ww (0, 0)
+1732564639: Received SUBSCRIBE from mqttx_f9bfd3ww
+1732564639: 	/move/state (QoS 1)
+1732564639: mqttx_f9bfd3ww 1 /move/state
+1732564639: Sending SUBACK to mqttx_f9bfd3ww
+1732564640: Received SUBSCRIBE from mqttx_f9bfd3ww
+1732564640: 	/system/state (QoS 1)
+1732564640: mqttx_f9bfd3ww 1 /system/state
+1732564640: Sending SUBACK to mqttx_f9bfd3ww
+1732564640: Received SUBSCRIBE from mqttx_f9bfd3ww
+1732564640: 	/alarm/state (QoS 1)
+1732564640: mqttx_f9bfd3ww 1 /alarm/state
+1732564640: Sending SUBACK to mqttx_f9bfd3ww
+1732564640: Received SUBSCRIBE from mqttx_f9bfd3ww
+1732564640: 	/door/state (QoS 1)
+1732564640: mqttx_f9bfd3ww 1 /door/state
+1732564640: Sending SUBACK to mqttx_f9bfd3ww
+1732564661: New connection from 172.18.0.1:37626 on port 1883.
+1732564661: New client connected from 172.18.0.1:37626 as auto-C3FEFB37-165F-96B3-ADF9-897C489D0AC6 (p2, c1, k60, u'admin').
+1732564661: No will message specified.
+1732564661: Sending CONNACK to auto-C3FEFB37-165F-96B3-ADF9-897C489D0AC6 (0, 0)
+1732564661: Received SUBSCRIBE from auto-C3FEFB37-165F-96B3-ADF9-897C489D0AC6
+1732564661: 	/door/ctrl (QoS 0)
+1732564661: auto-C3FEFB37-165F-96B3-ADF9-897C489D0AC6 0 /door/ctrl
+1732564661: Sending SUBACK to auto-C3FEFB37-165F-96B3-ADF9-897C489D0AC6
+1732564661: Received SUBSCRIBE from auto-C3FEFB37-165F-96B3-ADF9-897C489D0AC6
+1732564661: 	/alarm/ctrl (QoS 0)
+1732564661: auto-C3FEFB37-165F-96B3-ADF9-897C489D0AC6 0 /alarm/ctrl
+1732564661: Sending SUBACK to auto-C3FEFB37-165F-96B3-ADF9-897C489D0AC6
+1732564670: Received PUBLISH from auto-C3FEFB37-165F-96B3-ADF9-897C489D0AC6 (d0, q0, r0, m0, '/system/state', ... (17 bytes))
+1732564670: Sending PUBLISH to mymqtt-87963190788735 (d0, q0, r0, m0, '/system/state', ... (17 bytes))
+1732564670: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/system/state', ... (17 bytes))
+1732564672: Received PUBLISH from mqttx_f9bfd3ww (d0, q2, r0, m5, '/alarm/ctrl', ... (2 bytes))
+1732564672: Sending PUBREC to mqttx_f9bfd3ww (m5, rc0)
+1732564672: Received PUBREL from mqttx_f9bfd3ww (Mid: 5)
+1732564672: Sending PUBLISH to auto-C3FEFB37-165F-96B3-ADF9-897C489D0AC6 (d0, q0, r0, m0, '/alarm/ctrl', ... (2 bytes))
+1732564672: Sending PUBCOMP to mqttx_f9bfd3ww (m5)
+1732564672: Received PUBLISH from auto-C3FEFB37-165F-96B3-ADF9-897C489D0AC6 (d0, q0, r0, m0, '/alarm/state', ... (2 bytes))
+1732564672: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/alarm/state', ... (2 bytes))
+1732564674: Received PUBLISH from mqttx_f9bfd3ww (d0, q2, r0, m6, '/alarm/ctrl', ... (3 bytes))
+1732564674: Sending PUBREC to mqttx_f9bfd3ww (m6, rc0)
+1732564674: Received PUBREL from mqttx_f9bfd3ww (Mid: 6)
+1732564674: Sending PUBLISH to auto-C3FEFB37-165F-96B3-ADF9-897C489D0AC6 (d0, q0, r0, m0, '/alarm/ctrl', ... (3 bytes))
+1732564674: Sending PUBCOMP to mqttx_f9bfd3ww (m6)
+1732564674: Received PUBLISH from auto-C3FEFB37-165F-96B3-ADF9-897C489D0AC6 (d0, q0, r0, m0, '/alarm/state', ... (3 bytes))
+1732564674: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/alarm/state', ... (3 bytes))
+1732564678: Client auto-C3FEFB37-165F-96B3-ADF9-897C489D0AC6 closed its connection.
+1732564684: Client mqttx_f9bfd3ww closed its connection.
+1732564695: Received PINGREQ from mymqtt-87963190788735
+1732564695: Sending PINGRESP to mymqtt-87963190788735
+1732564719: New connection from 172.18.0.1:47874 on port 1883.
+1732564719: New client connected from 172.18.0.1:47874 as auto-D062C9D3-9DF6-2F70-2F49-0E16CBA6798F (p2, c1, k60, u'admin').
+1732564719: No will message specified.
+1732564719: Sending CONNACK to auto-D062C9D3-9DF6-2F70-2F49-0E16CBA6798F (0, 0)
+1732564719: Received SUBSCRIBE from auto-D062C9D3-9DF6-2F70-2F49-0E16CBA6798F
+1732564719: 	/door/ctrl (QoS 0)
+1732564719: auto-D062C9D3-9DF6-2F70-2F49-0E16CBA6798F 0 /door/ctrl
+1732564719: Sending SUBACK to auto-D062C9D3-9DF6-2F70-2F49-0E16CBA6798F
+1732564719: Received SUBSCRIBE from auto-D062C9D3-9DF6-2F70-2F49-0E16CBA6798F
+1732564719: 	/alarm/ctrl (QoS 0)
+1732564719: auto-D062C9D3-9DF6-2F70-2F49-0E16CBA6798F 0 /alarm/ctrl
+1732564719: Sending SUBACK to auto-D062C9D3-9DF6-2F70-2F49-0E16CBA6798F
+1732564726: New connection from 172.18.0.1:47888 on port 1883.
+1732564727: New client connected from 172.18.0.1:47888 as mqttx_f9bfd3ww (p2, c1, k60, u'admin').
+1732564727: No will message specified.
+1732564727: Sending CONNACK to mqttx_f9bfd3ww (0, 0)
+1732564728: Received SUBSCRIBE from mqttx_f9bfd3ww
+1732564728: 	/move/state (QoS 1)
+1732564728: mqttx_f9bfd3ww 1 /move/state
+1732564728: Sending SUBACK to mqttx_f9bfd3ww
+1732564728: Received SUBSCRIBE from mqttx_f9bfd3ww
+1732564728: 	/system/state (QoS 1)
+1732564728: mqttx_f9bfd3ww 1 /system/state
+1732564728: Sending SUBACK to mqttx_f9bfd3ww
+1732564728: Received SUBSCRIBE from mqttx_f9bfd3ww
+1732564728: 	/alarm/state (QoS 1)
+1732564728: mqttx_f9bfd3ww 1 /alarm/state
+1732564728: Sending SUBACK to mqttx_f9bfd3ww
+1732564728: Received SUBSCRIBE from mqttx_f9bfd3ww
+1732564728: 	/door/state (QoS 1)
+1732564728: mqttx_f9bfd3ww 1 /door/state
+1732564728: Sending SUBACK to mqttx_f9bfd3ww
+1732564732: Received PUBLISH from auto-D062C9D3-9DF6-2F70-2F49-0E16CBA6798F (d0, q0, r0, m0, '/system/state', ... (17 bytes))
+1732564732: Sending PUBLISH to mymqtt-87963190788735 (d0, q0, r0, m0, '/system/state', ... (17 bytes))
+1732564732: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/system/state', ... (17 bytes))
+1732564734: Received PUBLISH from mqttx_f9bfd3ww (d0, q2, r0, m5, '/alarm/ctrl', ... (2 bytes))
+1732564734: Sending PUBREC to mqttx_f9bfd3ww (m5, rc0)
+1732564734: Received PUBREL from mqttx_f9bfd3ww (Mid: 5)
+1732564734: Sending PUBLISH to auto-D062C9D3-9DF6-2F70-2F49-0E16CBA6798F (d0, q0, r0, m0, '/alarm/ctrl', ... (2 bytes))
+1732564734: Sending PUBCOMP to mqttx_f9bfd3ww (m5)
+1732564734: Received PUBLISH from auto-D062C9D3-9DF6-2F70-2F49-0E16CBA6798F (d0, q0, r0, m0, '/alarm/state', ... (2 bytes))
+1732564734: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/alarm/state', ... (2 bytes))
+1732564736: Received PUBLISH from mqttx_f9bfd3ww (d0, q2, r0, m6, '/alarm/ctrl', ... (3 bytes))
+1732564736: Sending PUBREC to mqttx_f9bfd3ww (m6, rc0)
+1732564736: Received PUBREL from mqttx_f9bfd3ww (Mid: 6)
+1732564736: Sending PUBLISH to auto-D062C9D3-9DF6-2F70-2F49-0E16CBA6798F (d0, q0, r0, m0, '/alarm/ctrl', ... (3 bytes))
+1732564736: Sending PUBCOMP to mqttx_f9bfd3ww (m6)
+1732564736: Received PUBLISH from auto-D062C9D3-9DF6-2F70-2F49-0E16CBA6798F (d0, q0, r0, m0, '/alarm/state', ... (3 bytes))
+1732564736: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/alarm/state', ... (3 bytes))
+1732564746: Received PUBLISH from mqttx_f9bfd3ww (d0, q2, r0, m7, '/alarm/ctrl', ... (2 bytes))
+1732564746: Sending PUBREC to mqttx_f9bfd3ww (m7, rc0)
+1732564746: Received PUBREL from mqttx_f9bfd3ww (Mid: 7)
+1732564746: Sending PUBLISH to auto-D062C9D3-9DF6-2F70-2F49-0E16CBA6798F (d0, q0, r0, m0, '/alarm/ctrl', ... (2 bytes))
+1732564746: Sending PUBCOMP to mqttx_f9bfd3ww (m7)
+1732564746: Received PUBLISH from auto-D062C9D3-9DF6-2F70-2F49-0E16CBA6798F (d0, q0, r0, m0, '/alarm/state', ... (2 bytes))
+1732564746: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/alarm/state', ... (2 bytes))
+1732564748: Received PUBLISH from mqttx_f9bfd3ww (d0, q2, r0, m8, '/alarm/ctrl', ... (3 bytes))
+1732564748: Sending PUBREC to mqttx_f9bfd3ww (m8, rc0)
+1732564748: Received PUBREL from mqttx_f9bfd3ww (Mid: 8)
+1732564748: Sending PUBLISH to auto-D062C9D3-9DF6-2F70-2F49-0E16CBA6798F (d0, q0, r0, m0, '/alarm/ctrl', ... (3 bytes))
+1732564748: Sending PUBCOMP to mqttx_f9bfd3ww (m8)
+1732564748: Received PUBLISH from auto-D062C9D3-9DF6-2F70-2F49-0E16CBA6798F (d0, q0, r0, m0, '/alarm/state', ... (3 bytes))
+1732564748: Sending PUBLISH to mqttx_f9bfd3ww (d0, q0, r0, m0, '/alarm/state', ... (3 bytes))
+1732564755: Received PINGREQ from mymqtt-87963190788735
+1732564755: Sending PINGRESP to mymqtt-87963190788735
+1732564768: Client auto-D062C9D3-9DF6-2F70-2F49-0E16CBA6798F closed its connection.
+1732564808: Received PINGREQ from mqttx_f9bfd3ww
+1732564808: Sending PINGRESP to mqttx_f9bfd3ww
+1732564815: Received PINGREQ from mymqtt-87963190788735
+1732564815: Sending PINGRESP to mymqtt-87963190788735
+1732564868: Received PINGREQ from mqttx_f9bfd3ww
+1732564868: Sending PINGRESP to mqttx_f9bfd3ww
+1732564874: Received PINGREQ from mymqtt-87963190788735
+1732564874: Sending PINGRESP to mymqtt-87963190788735
+1732564928: Received PINGREQ from mqttx_f9bfd3ww
+1732564928: Sending PINGRESP to mqttx_f9bfd3ww
+1732564934: Received PINGREQ from mymqtt-87963190788735
+1732564934: Sending PINGRESP to mymqtt-87963190788735
+1732564988: Received PINGREQ from mqttx_f9bfd3ww
+1732564988: Sending PINGRESP to mqttx_f9bfd3ww
+1732564994: Received PINGREQ from mymqtt-87963190788735
+1732564994: Sending PINGRESP to mymqtt-87963190788735
+1732565004: Client mqttx_f9bfd3ww closed its connection.
+1732565006: Received DISCONNECT from mymqtt-87963190788735
+1732565006: Client mymqtt-87963190788735 disconnected.

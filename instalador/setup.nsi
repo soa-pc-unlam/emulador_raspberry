@@ -11,7 +11,7 @@ RequestExecutionLevel admin
 !insertmacro MUI_LANGUAGE "English"
 
 # Path de archivos de instalación
-!define INSTALL_DIR_ORIGIN "C:\instalador"
+!define INSTALL_DIR_ORIGIN "D:\emulador_raspberry\instalador"
 # Definir las URL de descarga
 !define DOCKER_INSTALLER_URL "https://desktop.docker.com/win/stable/Docker%20Desktop%20Installer.exe"
 !define PYTHON_INSTALLER_URL "https://www.python.org/ftp/python/3.11.4/python-3.11.4.exe"
@@ -103,7 +103,6 @@ Function DescargarDocker
 
         DescargarExito:
             MessageBox MB_OK "Instalando Docker.."
-#            ExecWait '"$SYSDIR\cmd.exe" /c echo "Instalando Docker, por favor espere..." && "$TEMP\DockerInstaller.exe" && pause'
 			ExecWait '"$SYSDIR\cmd.exe" /c echo "Instalando Docker, por favor espere..." && "$TEMP\DockerInstaller.exe" && echo "Instalación completada." && pause'
 
             MessageBox MB_OK "Docker se instalo correctamente."
@@ -144,8 +143,13 @@ Function VerificarPython
             Quit
 
         DescargarPython:
-            Call DescargarPython
-			Call DescargarPip
+            Call DescargarPip
+			Call InstalarPaquetesPip
+		    
+			Call DescargarPython
+			
+			
+			
             Return
 FunctionEnd
 
@@ -214,11 +218,22 @@ FunctionEnd
 
 # Función para descargar e instalar pip
 Function DescargarPip
-    #ExecWait 'python -m ensurepip --upgrade'
-	Exec '"$SYSDIR\cmd.exe" /c echo "Instalando Pip, por favor espere..." && "python -m ensurepip --upgrade" && echo "Instalación completada." && pause'
+    MessageBox MB_OK "instalando Pip"
+	ExecWait '"$SYSDIR\cmd.exe" /k echo "Instalando Pip, por favor espere..." && python -m ensurepip --upgrade && echo "Instalación completada." && timeout /T 3 && exit'
 
 	#ExecWait '"$SYSDIR\cmd.exe" /c echo "Instalando Pip, por favor espere..." && "python -m ensurepip --upgrade" && pause'
     MessageBox MB_OK "pip se instaló correctamente."
+    Return
+FunctionEnd
+
+Function InstalarPaquetesPip
+	MessageBox MB_OK "Paquetes Pip..."
+	
+	ExecWait '"$SYSDIR\cmd.exe" /k echo "Instalando Pip, por favor espere..." && pip install -i https://test.pypi.org/simple --extra-index-url https://pypi.org/simple simu-docker-rpi && timeout /T 3 && exit'
+
+	#ExecWait '"$SYSDIR\cmd.exe" /c echo "Instalando Paquetes Pip, por favor espere..." && "pip install -i https://test.pypi.org/simple --extra-index-url https://pypi.org/simple simu-docker-rpi"  && echo "Instalación completada." && pause'
+
+    MessageBox MB_OK "Paquetes pip se instaló correctamente."
     Return
 FunctionEnd
 

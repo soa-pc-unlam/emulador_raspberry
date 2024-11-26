@@ -1,0 +1,21 @@
+version: "3"
+services:
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    container_name: mosquitto
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+      - ./mosquitto/passwd_file:/mosquitto/passwd_file
+    ports:
+      - 1883:1883
+      - 9001:9001
+    restart: unless-stopped
+  simu-docker-rpi:
+   image: soaunlam/emulador-raspberry-pigpio:latest
+   container_name: raspberry
+   ports:
+     - 5000:5000
+     - 5022:5022
+     - 22:22
