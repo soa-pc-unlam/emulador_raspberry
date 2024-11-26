@@ -1,0 +1,30 @@
+{
+  "name": "Cliente 2",
+  "width": 800,
+  "height": 400,
+  "lcds": [
+        {"x": 30, "y": 40, "name": "LCD", "pins":[2, 3, 4, 5, 6, 7], "columns": 16, "lines": 2}
+    ],
+  "buzzers": [
+        {"x": 350, "y": 40, "name": "Buzzer", "pin": 24, "frequency": 440}
+  ],
+  "leds": [
+        {"x": 450, "y":40,  "name": "LED Boton", "pin": 23},
+        {"x": 550, "y": 40,  "name": "Led PWM ", "pin": 12}
+  ],
+  "servos": [
+        {"x": 650, "y": 20, "name": "Servomotor", "pin": 18, "min_angle": -90, "max_angle": 90, "initial_angle": 20}
+  ],
+  "buttons": [
+        {"x": 350, "y": 100, "name": "Boton  Buzzer", "pin": 19},
+        {"x": 450, "y": 100, "name": "Boton led", "pin": 26}
+    ],
+  "motion_sensors": [
+        {"x":550 , "y":100 , "name": "Motion Sensor", "pin": 16, "detection_radius": 50, "delay_duration": 5, "block_duration": 3 }
+    ],
+  "toggles": [
+        {"x": 300, "y": 250, "name": "Encender sistema ", "pin": 20,  "on_label": "off","off_label": "on"}
+
+    ]
+
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Cliente 2",
+  "width": 150,
+  "height": 150,
+
+  "buttons": [
+        {"x": 50, "y": 50, "name": "Boton", "pin": 8},
+        {"x": 50, "y": 100, "name": "Boton 1", "pin": 9}
+    ]
+}

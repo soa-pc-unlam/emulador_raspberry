@@ -1,0 +1,8 @@
+{
+  "name": "Servo",
+  "width": 200,
+  "height": 200,
+    "servos": [
+        {"x": 50, "y": 50, "name": "Servomotor", "pin": 18, "min_angle": -90, "max_angle": 90, "initial_angle": 20}
+    ]
+}

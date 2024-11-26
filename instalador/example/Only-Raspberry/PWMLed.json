@@ -1,0 +1,15 @@
+{
+  "name": "Cliente 2",
+  "width": 300,
+  "height": 300,
+  "leds": [
+        {"x": 50, "y": 50, "name": "LED", "pin": 18}
+    ],
+  "buttons": [
+        {"x": 50, "y": 100, "name": "Apagar Led", "pin": 17}
+    ],
+  "toggles": [
+        {"x": 50, "y": 200, "name": "Intensidad de Luz ", "pin": 11, "off_label": "Media", "on_label": "Maxima"}
+
+    ]
+}
