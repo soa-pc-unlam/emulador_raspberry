@@ -63,13 +63,13 @@ Function VerificarDocker
 
     StrCmp $0 "0" DockerInstalado NoDocker
 	
-	NoDocker:
-    #DockerInstalado:
+	#NoDocker:
+    DockerInstalado:
         MessageBox MB_OK "Docker ya esta instalado en este sistema."
         Return
 	
-	DockerInstalado:
-    #NoDocker:
+	#DockerInstalado:
+    NoDocker:
         MessageBox MB_YESNO "Docker no esta instalado ¿Desea intentar descargar e instalar Docker automaticamente?" IDYES DescargarDocker IDNO Cancelar
 
         Cancelar:
@@ -102,10 +102,11 @@ Function DescargarDocker
         IfFileExists "$0" DescargarExito DescargarFallo
 
         DescargarExito:
-            MessageBox MB_OK "Instalando Docker.."
-			ExecWait '"$SYSDIR\cmd.exe" /c echo "Instalando Docker, por favor espere..." && "$TEMP\DockerInstaller.exe" && echo "Instalación completada." && pause'
+        #    MessageBox MB_OK "Instalando Docker.."
+			ExecWait '"$SYSDIR\cmd.exe" /k echo "Instalando Docker, por favor espere..." && $TEMP\DockerInstaller.exe && timeout /T 3 && exit'
+			#ExecWait '"$SYSDIR\cmd.exe" /c echo "Instalando Docker, por favor espere..." && "$TEMP\DockerInstaller.exe" && echo "Instalación completada." && pause'
 
-            MessageBox MB_OK "Docker se instalo correctamente."
+        #MessageBox MB_OK "Docker se instalo correctamente."
             Return
 
         DescargarFallo:
@@ -128,14 +129,14 @@ Function VerificarPython
 
     StrCmp $0 "0" PythonInstalado NoPython
 	
-	NoPython:
-    #PythonInstalado:
+	#NoPython:
+    PythonInstalado:
         MessageBox MB_OK "Python ya está instalado en este sistema."
         Call VerificarPip
         Return
 	
-	PythonInstalado:
-    #NoPython:
+	#PythonInstalado:
+    NoPython:
         MessageBox MB_YESNO "Python no está instalado. ¿Desea instalarlo automáticamente?" IDYES DescargarPython IDNO Cancelar
 
         Cancelar:
@@ -143,12 +144,8 @@ Function VerificarPython
             Quit
 
         DescargarPython:
-            Call DescargarPip
-			Call InstalarPaquetesPip
-		    
-			Call DescargarPython
-			
-			
+            Call DescargarPython
+			Call VerificarPip
 			
             Return
 FunctionEnd
@@ -161,13 +158,14 @@ Function VerificarPip
 
     StrCmp $0 "0" PipInstalado NoPip
 	
-	NoPip:
-    #PipInstalado:
+	#NoPip:
+    PipInstalado:
         MessageBox MB_OK "pip ya está instalado."
+		Call InstalarPaquetesPip
         Return
 	
-	PipInstalado:
-    #NoPip:
+	#PipInstalado:
+    NoPip:
         MessageBox MB_YESNO "pip no está instalado. ¿Desea instalarlo automáticamente?" IDYES DescargarPip IDNO Cancelar
 
         Cancelar:
@@ -176,6 +174,7 @@ Function VerificarPip
 
         DescargarPip:
             Call DescargarPip
+			Call InstalarPaquetesPip
             Return
 FunctionEnd
 
@@ -197,12 +196,10 @@ Function DescargarPython
         IfFileExists "$0" DescargarExito DescargarFallo
 
         DescargarExito:
-            MessageBox MB_OK "Instalando Python.."
+            #MessageBox MB_OK "Instalando Python.."
 			ExecWait '"$SYSDIR\cmd.exe" /c echo "Instalando Python, por favor espere..." && "$TEMP\PythonInstaller.exe" && echo "Instalación completada." && pause'
 
-            #ExecWait '"$SYSDIR\cmd.exe" /c echo "Instalando Python, por favor espere..." && "$TEMP\PythonInstaller.exe /quiet InstallAllUsers=1 PrependPath=1" && pause'
-			
-            MessageBox MB_OK "Python se instaló correctamente."
+            #MessageBox MB_OK "Python se instaló correctamente."
             Return
 
         DescargarFallo:
@@ -218,23 +215,13 @@ FunctionEnd
 
 # Función para descargar e instalar pip
 Function DescargarPip
-    MessageBox MB_OK "instalando Pip"
 	ExecWait '"$SYSDIR\cmd.exe" /k echo "Instalando Pip, por favor espere..." && python -m ensurepip --upgrade && echo "Instalación completada." && timeout /T 3 && exit'
-
-	#ExecWait '"$SYSDIR\cmd.exe" /c echo "Instalando Pip, por favor espere..." && "python -m ensurepip --upgrade" && pause'
-    MessageBox MB_OK "pip se instaló correctamente."
     Return
 FunctionEnd
 
 Function InstalarPaquetesPip
-	MessageBox MB_OK "Paquetes Pip..."
-	
-	ExecWait '"$SYSDIR\cmd.exe" /k echo "Instalando Pip, por favor espere..." && pip install -i https://test.pypi.org/simple --extra-index-url https://pypi.org/simple simu-docker-rpi && timeout /T 3 && exit'
-
-	#ExecWait '"$SYSDIR\cmd.exe" /c echo "Instalando Paquetes Pip, por favor espere..." && "pip install -i https://test.pypi.org/simple --extra-index-url https://pypi.org/simple simu-docker-rpi"  && echo "Instalación completada." && pause'
-
-    MessageBox MB_OK "Paquetes pip se instaló correctamente."
-    Return
+	ExecWait '"$SYSDIR\cmd.exe" /k echo "Instalando Paquetes simu-docker-rpi, por favor espere..." && pip install -i https://test.pypi.org/simple --extra-index-url https://pypi.org/simple simu-docker-rpi && timeout /T 3 && exit'
+	Return
 FunctionEnd
 
 
