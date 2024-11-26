@@ -1,5 +1,4 @@
-OutFile "setup-simu-docker-rpi.exe"
-InstallDir "c:\simu-docker-rpi"
+Name "simu-docker-rpi"          
 
 # Solicitar permisos de administrador
 RequestExecutionLevel admin
@@ -7,8 +6,16 @@ RequestExecutionLevel admin
 # Incluir complementos
 !include "LogicLib.nsh"
 !include "MUI2.nsh"
+
+!insertmacro MUI_PAGE_WELCOME
+!insertmacro MUI_PAGE_DIRECTORY ; Página para seleccionar directorio
 !insertmacro MUI_PAGE_INSTFILES
-!insertmacro MUI_LANGUAGE "English"
+!insertmacro MUI_PAGE_FINISH
+!insertmacro MUI_LANGUAGE "Spanish"
+
+OutFile "setup-simu-docker-rpi.exe"
+InstallDir "c:\simu-docker-rpi"
+
 
 # Path de archivos de instalación
 !define INSTALL_DIR_ORIGIN "D:\emulador_raspberry\instalador"
@@ -31,6 +38,8 @@ Section "Instalar"
     SetOutPath "$INSTDIR"
     File /r "${INSTALL_DIR_ORIGIN}\*.*"
 
+	# Mensaje de finalización
+   # MessageBox MB_OK "El programa se instalo en: $INSTDIR"
 SectionEnd
 
 Function ValidarURL
@@ -65,7 +74,7 @@ Function VerificarDocker
 	
 	#NoDocker:
     DockerInstalado:
-        MessageBox MB_OK "Docker ya esta instalado en este sistema."
+        #MessageBox MB_OK "Docker ya esta instalado en este sistema."
         Return
 	
 	#DockerInstalado:
@@ -131,7 +140,7 @@ Function VerificarPython
 	
 	#NoPython:
     PythonInstalado:
-        MessageBox MB_OK "Python ya está instalado en este sistema."
+        #MessageBox MB_OK "Python ya está instalado en este sistema."
         Call VerificarPip
         Return
 	
@@ -160,7 +169,7 @@ Function VerificarPip
 	
 	#NoPip:
     PipInstalado:
-        MessageBox MB_OK "pip ya está instalado."
+        #MessageBox MB_OK "pip ya está instalado."
 		Call InstalarPaquetesPip
         Return
 	
@@ -199,7 +208,7 @@ Function DescargarPython
             #MessageBox MB_OK "Instalando Python.."
 			ExecWait '"$SYSDIR\cmd.exe" /c echo "Instalando Python, por favor espere..." && "$TEMP\PythonInstaller.exe" && echo "Instalación completada." && pause'
 
-            #MessageBox MB_OK "Python se instaló correctamente."
+            #MessageBox MB_OK "Python se instalo correctamente."
             Return
 
         DescargarFallo:
