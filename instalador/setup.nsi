@@ -8,40 +8,83 @@ RequestExecutionLevel admin
 !include "MUI2.nsh"
 
 !insertmacro MUI_PAGE_WELCOME
+!insertmacro MUI_PAGE_COMPONENTS ; Página para seleccionar componentes
 !insertmacro MUI_PAGE_DIRECTORY ; Página para seleccionar directorio
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_PAGE_FINISH
 !insertmacro MUI_LANGUAGE "Spanish"
 
+# Directorio y nombre de instalación predeterminado
 OutFile "setup-simu-docker-rpi.exe"
 InstallDir "c:\simu-docker-rpi"
 
 
 # Path de archivos de instalación
 !define INSTALL_DIR_ORIGIN "D:\emulador_raspberry\instalador"
+!define INSTALL_DIR_DOCKER_COMPOSE "\docker\"
 # Definir las URL de descarga
 !define DOCKER_INSTALLER_URL "https://desktop.docker.com/win/stable/Docker%20Desktop%20Installer.exe"
 !define PYTHON_INSTALLER_URL "https://www.python.org/ftp/python/3.11.4/python-3.11.4.exe"
 
-# Sección principal de instalación
-Section "Instalar"
+# Componentes
+!define COMPONENT_DOCKER "Crear imagen Docker"
 
-	# Verificar si Python y pip están instalados
-	Call VerificarPython
-    # Verificar si Docker está instalado
-    Call VerificarDocker
 
-    # Crear directorio de instalación
-    CreateDirectory "$INSTDIR"
+SectionGroup "Requisitos del sistema"
+	
+    Section "Instalar Docker"
+		SectionIn RO #Esta seccion es obligatoria        
+		Call VerificarDocker
+    SectionEnd
+	Section "Instalar Python y pip"
+		SectionIn RO #Esta seccion es obligatoria    
+		Call VerificarPython
+        Call VerificarPip
+    SectionEnd
+	Section "Instalar configuracion"
+		SectionIn RO #Esta seccion es obligatoria    
+		# Crear directorio de instalación
+		CreateDirectory "$INSTDIR"
 
-    # Copiar archivos al directorio de instalación
-    SetOutPath "$INSTDIR"
-    File /r "${INSTALL_DIR_ORIGIN}\*.*"
+		# Copiar archivos al directorio de instalación
+		SetOutPath "$INSTDIR"
+		File /r "${INSTALL_DIR_ORIGIN}\*.*"
+	SectionEnd
+	# Sección de desinstalación
+	Section "Limpieza de instalacion"
+		SectionIn RO #Esta seccion es obligatoria        
+		# Eliminar archivos y directorios
+		Delete "$INSTDIR\*.*"
+		RMDir "$INSTDIR"
+		Delete $TEMP\DockerInstaller.exe
+		Delete $TEMP\PythonInstaller.exe
 
-	# Mensaje de finalización
-   # MessageBox MB_OK "El programa se instalo en: $INSTDIR"
+	SectionEnd
+		
+SectionGroupEnd
+
+
+Section "Crear Contenedores Docker"
+    # Esta sección es opcional para crear y contenedores las imagenes usando Docker Compose
+	StrCpy $0 "$INSTDIR${INSTALL_DIR_DOCKER_COMPOSE}docker-compose.yml"  ; Ruta del docker compose
+	
+	IfFileExists "$0" ArchivoComposeExiste ArchivoComposeNoExiste
+	
+	ArchivoComposeExiste:
+		SetOutPath "$INSTDIR${INSTALL_DIR_DOCKER_COMPOSE}"
+		ExecWait '"$SYSDIR\cmd.exe" /k echo "Instalando Docker cOMPSE, por favor espere..." && docker-compose up -d && timeout /T 3 && exit'
+		MessageBox MB_OK "Se ha instalado y ejecutado los contendores Docker."
+		Return
+
+	ArchivoComposeNoExiste:
+		MessageBox MB_OK "No se ha instalado correctamente el archivo de Docker-Compose.yml"
+		Return
+    
 SectionEnd
 
+
+
+# Funciones de ejecucion
 Function ValidarURL
     inetc::head /silent "${DOCKER_INSTALLER_URL}" "$TEMP\head.txt"
     Pop $0  ; Captura el estado del comando
@@ -74,8 +117,7 @@ Function VerificarDocker
 	
 	#NoDocker:
     DockerInstalado:
-        #MessageBox MB_OK "Docker ya esta instalado en este sistema."
-        Return
+       Return
 	
 	#DockerInstalado:
     NoDocker:
@@ -111,11 +153,7 @@ Function DescargarDocker
         IfFileExists "$0" DescargarExito DescargarFallo
 
         DescargarExito:
-        #    MessageBox MB_OK "Instalando Docker.."
-			ExecWait '"$SYSDIR\cmd.exe" /k echo "Instalando Docker, por favor espere..." && $TEMP\DockerInstaller.exe && timeout /T 3 && exit'
-			#ExecWait '"$SYSDIR\cmd.exe" /c echo "Instalando Docker, por favor espere..." && "$TEMP\DockerInstaller.exe" && echo "Instalación completada." && pause'
-
-        #MessageBox MB_OK "Docker se instalo correctamente."
+			ExecWait '"$SYSDIR\cmd.exe" /k echo "Instalando Docker, por favor espere..." && $TEMP\DockerInstaller.exe && timeout /T 3 && exit'     
             Return
 
         DescargarFallo:
@@ -141,7 +179,7 @@ Function VerificarPython
 	#NoPython:
     PythonInstalado:
         #MessageBox MB_OK "Python ya está instalado en este sistema."
-        Call VerificarPip
+       # Call VerificarPip
         Return
 	
 	#PythonInstalado:
@@ -154,7 +192,7 @@ Function VerificarPython
 
         DescargarPython:
             Call DescargarPython
-			Call VerificarPip
+		#	Call VerificarPip
 			
             Return
 FunctionEnd
@@ -169,8 +207,7 @@ Function VerificarPip
 	
 	#NoPip:
     PipInstalado:
-        #MessageBox MB_OK "pip ya está instalado."
-		Call InstalarPaquetesPip
+        Call InstalarPaquetesPip
         Return
 	
 	#PipInstalado:
@@ -205,10 +242,7 @@ Function DescargarPython
         IfFileExists "$0" DescargarExito DescargarFallo
 
         DescargarExito:
-            #MessageBox MB_OK "Instalando Python.."
-			ExecWait '"$SYSDIR\cmd.exe" /c echo "Instalando Python, por favor espere..." && "$TEMP\PythonInstaller.exe" && echo "Instalación completada." && pause'
-
-            #MessageBox MB_OK "Python se instalo correctamente."
+            ExecWait '"$SYSDIR\cmd.exe" /c echo "Instalando Python, por favor espere..." && "$TEMP\PythonInstaller.exe" && echo "Instalación completada." && pause'
             Return
 
         DescargarFallo:
@@ -234,14 +268,3 @@ Function InstalarPaquetesPip
 FunctionEnd
 
 
-# Sección de desinstalación
-Section "Desinstalar"
-
-    # Eliminar archivos y directorios
-    Delete "$INSTDIR\*.*"
-    RMDir "$INSTDIR"
-
-    # Eliminar acceso directo
-    Delete "$SMPROGRAMS\MyApp\MyApp.lnk"
-
-SectionEnd
