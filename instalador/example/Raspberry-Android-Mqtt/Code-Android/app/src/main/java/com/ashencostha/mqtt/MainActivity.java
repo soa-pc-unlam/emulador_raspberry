@@ -19,11 +19,30 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import pl.droidsonroids.gif.GifDrawable;
 
 
 public class MainActivity extends Activity  {
+    public static final Integer MODE_REMOTE= 1;
+    public static final Integer MODE_MOSQUITTO= 2;
+    public static final Integer MODE_BROKER= MODE_MOSQUITTO;
+    public static final String BROKER_URL_REMOTE = "tcp://broker.emqx.io:1883";
+    public static final String BROKER_URL_MOSQUITTO = "tcp://192.168.30.207";
+    public static final String CLIENT_ID = "mqttx_f9bfd3ww";
+    public static final String USER_REMOTE="admin";
+    public static final String USER_MOSQUITTO="admin";
+    public static final String PASS_REMOTE="";
+    public static final String PASS_MOSQUITTO="soa2024";
+
+
+    public static final String TOPIC_SYSTEM_STATE  = "/system/state";
+    public static final String TOPIC_MOVE_STATE    = "/move/state";
+    public static final String TOPIC_CTRL_ALARM    = "/alarm/ctrl";
+    public static final String TOPIC_STATE_ALARM   = "/alarm/state";
+    public static final String TOPIC_CTRL_DOOR     = "/door/ctrl";
+    public static final String TOPIC_STATE_DOOR    = "/door/state";
 
 
     private MqttHandler mqttHandler;
@@ -80,14 +99,18 @@ public class MainActivity extends Activity  {
     {
 
         try {
-            mqttHandler.connect(mqttHandler.BROKER_URL,mqttHandler.CLIENT_ID, mqttHandler.USER, mqttHandler.PASS);
-            Thread.sleep(1000);
-            subscribeToTopic(MqttHandler.TOPIC_MOVE_STATE);
-            subscribeToTopic(MqttHandler.TOPIC_SYSTEM_STATE);
-            subscribeToTopic(MqttHandler.TOPIC_STATE_ALARM);
-            subscribeToTopic(MqttHandler.TOPIC_STATE_DOOR);
+            if(Objects.equals(MODE_BROKER, MODE_REMOTE))
+                mqttHandler.connect(BROKER_URL_REMOTE,CLIENT_ID, USER_REMOTE, PASS_REMOTE);
+            else
+                mqttHandler.connect(BROKER_URL_MOSQUITTO,CLIENT_ID, USER_MOSQUITTO, PASS_MOSQUITTO);
 
-            Toast.makeText(this,"Conexion establecida",Toast.LENGTH_SHORT).show();
+            Thread.sleep(1000);
+            subscribeToTopic(TOPIC_MOVE_STATE);
+            subscribeToTopic(TOPIC_SYSTEM_STATE);
+            subscribeToTopic(TOPIC_STATE_ALARM);
+            subscribeToTopic(TOPIC_STATE_DOOR);
+
+
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -124,7 +147,6 @@ public class MainActivity extends Activity  {
         mqttHandler.publish(topic,message);
     }
     private void subscribeToTopic(String topic){
-       // Toast.makeText(this, "Subscribing to topic "+ topic, Toast.LENGTH_SHORT).show();
         mqttHandler.subscribe(topic);
     }
 
@@ -139,24 +161,24 @@ public class MainActivity extends Activity  {
                     if (isChecked) {
                         Toast.makeText(MainActivity.this, "Puerta abierta", Toast.LENGTH_SHORT).show();
                         imgDoor.setImageResource(R.drawable.open_door);
-                        publishMessage(MqttHandler.TOPIC_CTRL_DOOR,"open");
+                        publishMessage(TOPIC_CTRL_DOOR,"open");
                     } else {
                         Toast.makeText(MainActivity.this, "Puerta cerrada", Toast.LENGTH_SHORT).show();
                         imgDoor.setImageResource(R.drawable.close_door);
-                        publishMessage(MqttHandler.TOPIC_CTRL_DOOR,"close");
+                        publishMessage(TOPIC_CTRL_DOOR,"close");
                     }
                     break;
 
                 case R.id.swAlarm:
                     if (isChecked) {
                         Toast.makeText(MainActivity.this, "Alarma activada", Toast.LENGTH_SHORT).show();
-                        publishMessage(MqttHandler.TOPIC_CTRL_ALARM,"on");
+                        publishMessage(TOPIC_CTRL_ALARM,"on");
                     } else {
                         Toast.makeText(MainActivity.this, "Alarma desactivada", Toast.LENGTH_SHORT).show();
                         txtDescription.setText("");
                         imgSiren.setVisibility(View.INVISIBLE);
                         gifDrawable.stop();
-                        publishMessage(MqttHandler.TOPIC_CTRL_ALARM,"off");
+                        publishMessage(TOPIC_CTRL_ALARM,"off");
                     }
                     break;
             }
@@ -184,14 +206,14 @@ public class MainActivity extends Activity  {
                 String msg = intent.getStringExtra("msg");
 
                 switch (topic) {
-                    case MqttHandler.TOPIC_MOVE_STATE:
+                    case TOPIC_MOVE_STATE:
                         txtDescription.setText("Movimiento detectado");
                         imgSiren.setVisibility(View.VISIBLE);
                         gifDrawable.start();
 
                         break;
 
-                    case MqttHandler.TOPIC_STATE_ALARM:
+                    case TOPIC_STATE_ALARM:
                         swAlarm.setOnCheckedChangeListener(null); // Deshabilita temporalmente el listener
                         if("on".equals(msg))
                         {
@@ -207,7 +229,7 @@ public class MainActivity extends Activity  {
                         swAlarm.setOnCheckedChangeListener(switchListener); // Vuelve a habilitar el listener
                         break;
 
-                    case MqttHandler.TOPIC_STATE_DOOR:
+                    case TOPIC_STATE_DOOR:
                         swDoor.setOnCheckedChangeListener(null); // Deshabilita temporalmente el listener
 
                         if ("open".equals(msg))

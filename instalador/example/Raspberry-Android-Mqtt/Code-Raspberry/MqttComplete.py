@@ -6,6 +6,19 @@ from simu_docker_rpi.CircuitPlatform import Circuit_Platform
 
 from mqttHandler.mqttHandler import MQTTHandler
 
+MODE_REMOTE= 1
+MODE_MOSQUITTO= 2
+MODE_BROKER= MODE_MOSQUITTO
+
+BROKER_URL_REMOTE = "broker.emqx.io"
+BROKER_URL_MOSQUITTO = "192.168.30.207"
+CLIENT_ID = "mqttx_f9bfd3ww"
+USER_REMOTE="admin"
+USER_MOSQUITTO="admin"
+PASS_REMOTE=""
+PASS_MOSQUITTO="soa2024"
+
+
 IN_MIN  = 0
 IN_MAX  = 180
 OUT_MIN = -1
@@ -246,7 +259,11 @@ def main():
     switch_interruptor = Button(PIN_SWITCH,pull_up=False)
 
     # Inicializa el manejador MQTT
-    mqtt_handler = MQTTHandler(broker='broker.emqx.io', port=1883)
+    if MODE_BROKER==MODE_REMOTE:
+        mqtt_handler = MQTTHandler(broker=BROKER_URL_REMOTE, port=1883)
+    else:
+        mqtt_handler = MQTTHandler(broker=BROKER_URL_MOSQUITTO,port=1883,username=USER_MOSQUITTO,password=PASS_MOSQUITTO)
+
     mqtt_handler.connect()
 
     # Suscripción a tópicos y asignación del callback MQTT
