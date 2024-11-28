@@ -6,6 +6,8 @@ RequestExecutionLevel admin
 # Incluir complementos
 !include "LogicLib.nsh"
 !include "MUI2.nsh"
+!include x64.nsh
+
 
 !insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_COMPONENTS ; Página para seleccionar componentes
@@ -20,7 +22,7 @@ InstallDir "c:\simu-docker-rpi"
 
 
 # Path de archivos de instalación
-!define INSTALL_DIR_ORIGIN "D:\emulador_raspberry\instalador"
+!define INSTALL_DIR_ORIGIN ".\"
 !define INSTALL_DIR_DOCKER_COMPOSE "\docker\"
 # Definir las URL de descarga
 !define DOCKER_INSTALLER_URL "https://desktop.docker.com/win/stable/Docker%20Desktop%20Installer.exe"
@@ -29,6 +31,7 @@ InstallDir "c:\simu-docker-rpi"
 # Componentes
 !define COMPONENT_DOCKER "Crear imagen Docker"
 
+var DockerPath
 
 SectionGroup "Requisitos del sistema"
 	
@@ -65,23 +68,78 @@ SectionGroupEnd
 
 
 Section "Crear Contenedores Docker"
-    # Esta sección es opcional para crear y contenedores las imagenes usando Docker Compose
-	StrCpy $0 "$INSTDIR${INSTALL_DIR_DOCKER_COMPOSE}docker-compose.yml"  ; Ruta del docker compose
+	# Esta sección es opcional para crear y contenedores las imagenes usando Docker Compose
+	call EjecutarDockerDesktop
+	StrCmp $0 "true" DescargarImagenDocker CancelarDescarga
 	
-	IfFileExists "$0" ArchivoComposeExiste ArchivoComposeNoExiste
-	
-	ArchivoComposeExiste:
-		SetOutPath "$INSTDIR${INSTALL_DIR_DOCKER_COMPOSE}"
-		ExecWait '"$SYSDIR\cmd.exe" /k echo "Instalando Docker cOMPSE, por favor espere..." && docker-compose up -d && timeout /T 3 && exit'
-		MessageBox MB_OK "Se ha instalado y ejecutado los contendores Docker."
+	CancelarDescarga:
 		Return
+	
+	DescargarImagenDocker:	
+		#una vez iniciado Docker Desktop se ejecuta el archivo docker-compose
+		StrCpy $0 "$INSTDIR${INSTALL_DIR_DOCKER_COMPOSE}docker-compose.yml"  ; Ruta del docker compose
+		
+		IfFileExists "$0" ArchivoComposeExiste ArchivoComposeNoExiste
+		
+		ArchivoComposeExiste:
+			SetOutPath "$INSTDIR${INSTALL_DIR_DOCKER_COMPOSE}"
+			ExecWait '"$SYSDIR\cmd.exe" /k echo "Instalando Docker COMPSE, por favor espere..." && docker-compose up -d && timeout /T 3 && exit'
+			MessageBox MB_OK "Se ha instalado y ejecutado los contendores Docker."
+			Return
 
-	ArchivoComposeNoExiste:
-		MessageBox MB_OK "No se ha instalado correctamente el archivo de Docker-Compose.yml"
-		Return
-    
+		ArchivoComposeNoExiste:
+			MessageBox MB_OK "No se ha instalado correctamente el archivo de Docker-Compose.yml"
+			Return
+		
 SectionEnd
 
+
+Function EjecutarDockerDesktop
+    # Leer clave en HKLM
+	
+	${If} ${RunningX64}
+		SetRegView 64
+	${EndIf}
+
+	
+	ReadRegStr $DockerPath HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Docker Desktop" "InstallLocation"   
+    # Verificar si la clave está vacía
+    StrCmp $DockerPath "" ComprobarHKCU 0
+    Goto EjecutarDocker
+
+    ComprobarHKCU:
+        # Leer clave en HKCU
+        ReadRegStr $DockerPath HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Docker Desktop" "InstallLocation"
+        StrCmp $DockerPath "" NoEncontrado 0
+        
+
+    EjecutarDocker:
+        # Asegurarte de que el ejecutable se encuentra
+        IfFileExists "$DockerPath\Docker Desktop.exe" EjecutarAhora
+        MessageBox MB_OK "Error: No se encontró el ejecutable en $DockerPath\Docker Desktop.exe"
+        Goto NoEncontrado
+
+     EjecutarAhora:
+	 	SetOutPath "$DockerPath"
+		ExecWait '"$SYSDIR\cmd.exe" /k echo "Iniciando Docker, por favor espere 20 segundos..." && "Docker Desktop.exe" && timeout /T 20 && exit'     
+
+
+        StrCpy $0 "true"
+        Return
+
+    NoEncontrado:
+        MessageBox MB_YESNO "Error: No se pudo iniciar Docker Desktop automáticamente. ¿Desea iniciar Docker manualmente?" IDYES RespuestaYes IDNO RespuestaNo
+
+        RespuestaNo:
+            MessageBox MB_OK "Atención: deberá descargar la imagen Docker manualmente"
+            StrCpy $0 "false"
+            Return
+
+        RespuestaYes:
+            MessageBox MB_OK "Asegúrese de que Docker Desktop esté iniciado para continuar"
+            StrCpy $0 "true"
+            Return    
+FunctionEnd
 
 
 # Funciones de ejecucion
@@ -242,7 +300,7 @@ Function DescargarPython
         IfFileExists "$0" DescargarExito DescargarFallo
 
         DescargarExito:
-            ExecWait '"$SYSDIR\cmd.exe" /c echo "Instalando Python, por favor espere..." && "$TEMP\PythonInstaller.exe" && echo "Instalación completada." && pause'
+            ExecWait '"$SYSDIR\cmd.exe" /c echo "Instalando Python, por favor espere..." && "$TEMP\PythonInstaller.exe" && echo "Instalación completada." && timeout /T 3 && exit'
             Return
 
         DescargarFallo:

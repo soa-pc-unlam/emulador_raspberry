@@ -704,3 +704,11 @@ To fix this, use `chmod 0700 /mosquitto/passwd_file/password.txt`.
 1732565004: Client mqttx_f9bfd3ww closed its connection.
 1732565006: Received DISCONNECT from mymqtt-87963190788735
 1732565006: Client mymqtt-87963190788735 disconnected.
+1732668761: mosquitto version 2.0.20 starting
+1732668761: Config loaded from /mosquitto/config/mosquitto.conf.
+1732668761: Warning: File /mosquitto/passwd_file/password.txt has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/passwd_file/password.txt`.
+1732668761: Opening ipv4 listen socket on port 1883.
+1732668761: mosquitto version 2.0.20 running
+1732668812: mosquitto version 2.0.20 terminating
+1732668812: Saving in-memory database to /mosquitto/data//mosquitto.db.
