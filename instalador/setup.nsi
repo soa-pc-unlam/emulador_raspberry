@@ -51,7 +51,10 @@ SectionGroup "Requisitos del sistema"
 
 		# Copiar archivos al directorio de instalación
 		SetOutPath "$INSTDIR"
+		
 		File /r "${INSTALL_DIR_ORIGIN}\*.*"
+		CopyFiles  "${INSTALL_DIR_ORIGIN}\Readme.md" "$INSTDIR"
+		CopyFiles  "${INSTALL_DIR_ORIGIN}\Readme.docx" "$INSTDIR"	
 	SectionEnd
 	# Sección de desinstalación
 	Section "Limpieza de instalacion"
@@ -121,7 +124,7 @@ Function EjecutarDockerDesktop
 
      EjecutarAhora:
 	 	SetOutPath "$DockerPath"
-		ExecWait '"$SYSDIR\cmd.exe" /k echo "Iniciando Docker, por favor espere 20 segundos..." && "Docker Desktop.exe" && timeout /T 20 && exit'     
+		ExecWait '"$SYSDIR\cmd.exe" /k echo "Iniciando Docker. Por favor espere 40 segundos hasta que se inicie Docker..." && "Docker Desktop.exe" && timeout /T 40 && exit'     
 
 
         StrCpy $0 "true"

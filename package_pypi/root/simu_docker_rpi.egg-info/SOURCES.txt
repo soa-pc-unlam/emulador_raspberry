@@ -37,6 +37,7 @@ simu_docker_rpi/gpiozero/pins/rpigpio.py
 simu_docker_rpi/gpiozero/pins/spi.py
 simu_docker_rpi/gpiozero/pins/style.py
 simu_docker_rpi/tkgpio/Adafruit_CharLCD.py
+simu_docker_rpi/tkgpio/LICENSE.txt
 simu_docker_rpi/tkgpio/__init__.py
 simu_docker_rpi/tkgpio/base.py
 simu_docker_rpi/tkgpio/lirc.py

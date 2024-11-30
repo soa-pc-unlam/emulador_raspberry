@@ -7,7 +7,7 @@ this_directory = Path(__file__).parent
 
 setup(
     name="simu_docker_rpi",
-    version="0.1.7",
+    version="0.1.8",
     author="Unlam",
     description="Bibloteca para usar el emulador de Raspberry Pi dentro de Docker",
     long_description=open(this_directory/"README.md").read(),

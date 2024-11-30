@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
-Name: simu_docker_rpi
-Version: 0.1.7
+Name: simu-docker-rpi
+Version: 0.1.8
 Summary: Bibloteca para usar el emulador de Raspberry Pi dentro de Docker
 Author: Unlam
 Classifier: Programming Language :: Python :: 3
@@ -8,14 +8,6 @@ Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
 Requires-Python: >=3.6
 Description-Content-Type: text/markdown
-Requires-Dist: cffi
-Requires-Dist: colorzero
-Requires-Dist: paho-mqtt<2.0.0
-Requires-Dist: pigpio
-Requires-Dist: pillow
-Requires-Dist: pycparser
-Requires-Dist: setuptools
-Requires-Dist: sounddevice
 
 # Simu
 
